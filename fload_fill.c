@@ -26,7 +26,7 @@ static bool	check_borders(char **map, int w, int h)
 	i = -1;
 	while (++i < h)
 	{
-		if (map[i][0] != '1' || map[i][w - 1] != '1' )
+		if (map[i][0] != '1' || map[i][w] != '1' )
 			return (false);
 	}
 	i = -1;
@@ -63,7 +63,7 @@ int	fload_fill(t_map *m)
 	while(++y < m->size.y)
 	{
 		x = -1;
-		while (++x < m->size.x - 1 && m->map[y][x])
+		while (++x < m->size.x && m->map[y][x])
 		{
 			if (!is_valid(m->map[y][x]))
 				return (0);

@@ -13,7 +13,7 @@
 #ifndef MAP_H
 # define MAP_H
 
-# include "structs.h"
+# include "game.h"
 # include <stddef.h>
 
 typedef struct s_map
@@ -27,5 +27,8 @@ typedef struct s_map
 	int			x;
 }				t_map;
 
-int	fload_fill(t_map *m);
+t_map	init_map(char *file);
+int		fload_fill(t_map *m);
+void	error_message(int e);
+int		valid_name(char *s, int l);
 #endif

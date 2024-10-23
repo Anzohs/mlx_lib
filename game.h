@@ -18,8 +18,13 @@
 # include <stdbool.h>
 # include <sys/time.h>
 # include "structs.h"
-# include "mlx/mlx.h"
+//# include "mlx/mlx.h"
 # include "libft/libft.h"
+
+typedef struct s_map	t_map;
+
+
+void	game_start(t_map map);
 
 t_game	*init_game(char *name, t_vector s);
 int		exit_t(t_game *g);

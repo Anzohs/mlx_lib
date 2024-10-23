@@ -1,31 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_main.c                                         :+:      :+:    :+:   */
+/*   error_message.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 17:48:01 by hladeiro          #+#    #+#             */
-/*   Updated: 2024/10/22 17:48:02 by hladeiro         ###   ########.fr       */
+/*   Created: 2024/10/22 22:54:30 by hladeiro          #+#    #+#             */
+/*   Updated: 2024/10/22 22:54:45 by hladeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "game.h"
 #include "map.h"
+#include "game.h"
 
-int	main(int ac, char **av)
+void	error_message(int error)
 {
-	int	len;
-
-	if (ac == 2)
-	{
-		len = ft_strlen(av[1]);
-		if (len > 3 && valid_name(av[1], len))
-			game_start(init_map(av[1]));
-		else
-			error_message(2);
-	}
-	else
-		error_message(1);
-	return (0);
+	if (error == 1)
+		ft_putstr_fd("Wrong number of arguments\n", 2);
+	if (error == 2)
+		ft_putstr_fd("Invalid map\n", 2);
+	if (error == 3)
+		ft_putstr_fd("Error reading the file\n", 2);
+	exit(0);
 }
