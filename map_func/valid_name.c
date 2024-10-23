@@ -1,34 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map.h                                              :+:      :+:    :+:   */
+/*   valid_name.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 18:41:33 by hladeiro          #+#    #+#             */
-/*   Updated: 2024/10/22 18:41:35 by hladeiro         ###   ########.fr       */
+/*   Created: 2024/10/22 22:53:02 by hladeiro          #+#    #+#             */
+/*   Updated: 2024/10/22 22:53:59 by hladeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MAP_H
-# define MAP_H
+#include "../inc/game.h"
 
-# include "game.h"
-# include <stddef.h>
-
-typedef struct s_map
+int	valid_name(char *s, int l)
 {
-	char		**map;
-	t_vector	size;
-	t_vector	p_pos;
-	int			c;
-	int			p;
-	int			e;
-	int			x;
-}				t_map;
-
-t_map	init_map(char *file);
-int		fload_fill(t_map *m);
-void	error_message(int e);
-int		valid_name(char *s, int l);
-#endif
+	return (s[--l] == 'r' && s[--l] == 'e' && s[--l] == 'b' && s[--l] == '.');
+}

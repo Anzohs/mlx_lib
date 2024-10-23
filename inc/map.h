@@ -1,30 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   new_main.c                                         :+:      :+:    :+:   */
+/*   map.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/22 17:48:01 by hladeiro          #+#    #+#             */
-/*   Updated: 2024/10/22 17:48:02 by hladeiro         ###   ########.fr       */
+/*   Created: 2024/10/22 18:41:33 by hladeiro          #+#    #+#             */
+/*   Updated: 2024/10/22 18:41:35 by hladeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/game.h"
+#ifndef MAP_H
+# define MAP_H
 
-int	main(int ac, char **av)
-{
-	int	len;
+# include "structs.h"
+# include <stddef.h>
 
-	if (ac == 2)
-	{
-		len = ft_strlen(av[1]);
-		if (len > 3 && valid_name(av[1], len))
-			game_start(init_map(av[1]));
-		else
-			error_message(2);
-	}
-	else
-		error_message(1);
-	return (0);
-}
+int		fload_helper(t_map *m);
+t_map	init_map(char *file);
+int		fload_fill(t_map *m);
+void	error_message(int e);
+void	free_map(t_map *m);
+int		valid_name(char *s, int l);
+
+#endif

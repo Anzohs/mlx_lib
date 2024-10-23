@@ -10,16 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "map.h"
-#include "game.h"
+#include "../inc/game.h"
 
 void	error_message(int error)
 {
 	if (error == 1)
-		ft_putstr_fd("Wrong number of arguments\n", 2);
+		ft_putstr_fd("Error Wrong number of arguments\n", 2);
 	if (error == 2)
-		ft_putstr_fd("Invalid map\n", 2);
+		ft_putstr_fd("Error Invalid map\n", 2);
 	if (error == 3)
-		ft_putstr_fd("Error reading the file\n", 2);
+		ft_putstr_fd("Error Reading the file\n", 2);
 	exit(0);
 }

@@ -10,12 +10,15 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "game.h"
-#include "libft/get_next_line.h"
-#include "libft/libft.h"
-#include "map.h"
+#include "../inc/game.h"
 #include <stdio.h>
-#include <stdlib.h>
+
+static void	wrong_dimentions(int fd, char *line, int n)
+{
+	close(fd);
+	free(line);
+	error_message(n);
+}
 
 static t_vector	get_dimensions(char *file)
 {
@@ -33,11 +36,7 @@ static t_vector	get_dimensions(char *file)
 	{
 		dim.y++;
 		if (dim.x != ft_strlen(line))
-		{
-			close(fd);
-			free(line);
-			error_message(2);
-		}
+			wrong_dimentions(fd, line, 2);
 		free(line);
 		line = get_next_line(fd);
 	}
@@ -45,17 +44,6 @@ static t_vector	get_dimensions(char *file)
 	close(fd);
 	dim.x--;
 	return (dim);
-}
-
-static void	free_map(t_map *m)
-{
-	int	i;
-
-	i = -1;
-	while (m->map[++i])
-		free(m->map[i]);
-	free(m->map);
-	error_message(3);
 }
 
 static char	*str_cpyn(char *src)

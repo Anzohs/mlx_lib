@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "game.h"
+#include "inc/game.h"
 #include "mlx/mlx.h"
-#include "structs.h"
 
 char **create_map()
 {

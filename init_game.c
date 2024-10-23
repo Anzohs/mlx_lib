@@ -10,9 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "game.h"
+#include "inc/game.h"
 #include "mlx/mlx.h"
-#include "structs.h"
 
 void	loop(t_game	*g)
 {
@@ -25,6 +24,8 @@ int	exit_t(t_game *g)
 	{
 		if (g->win.win)
 			mlx_destroy_window(g->mlx, g->win.win);
+		if (g->world.img)
+			mlx_destroy_image(g->mlx, g->world.img);
 		if (g->mlx)
 		{
 			mlx_destroy_display(g->mlx);
