@@ -27,7 +27,7 @@ int	exit_t(t_game *g)
 			mlx_destroy_image(g->mlx, g->world.img);
 		if (g->mlx)
 		{
-			//mlx_destroy_display(g->mlx);
+			mlx_destroy_display(g->mlx);
 			free(g->mlx);
 		}
 		free(g);
@@ -51,6 +51,6 @@ t_game	*init_game(char *name, t_vector s)
 	if (!game->win.win)
 		exit_t(game);
 	mlx_hook(game->win.win, 17, (1L << 0), &exit_t, game);
-	game->size = s;
+	game->win.size = s;
 	return (game);
 }

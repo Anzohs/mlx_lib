@@ -110,6 +110,5 @@ t_map	init_map(char *file)
 	copy_map(&m, fd);
 	if (!fload_fill(&m))
 		free_map(&m);
-	printf("valid map");
 	return (m);
 }
