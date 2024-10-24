@@ -1,0 +1,6 @@
+#Ignore folder
+minilibx_opengl/
+
+#ingnore executable
+*.out
+.zshrc

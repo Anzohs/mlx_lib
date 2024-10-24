@@ -19,7 +19,7 @@
 # include <sys/time.h>
 # include "structs.h"
 # include "map.h"
-//# include "mlx/mlx.h"
+# include "../minilibx_opengl/mlx.h"
 # include "libft/libft.h"
 
 typedef struct s_map	t_map;
