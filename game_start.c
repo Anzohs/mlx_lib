@@ -70,7 +70,7 @@ static void	draw_p(t_game *g)
 		}
 	}
 
-	player_to_world(&g->world, &g->p.sprite, g->p.pos);
+	player_to_world(&g->world, &g->p.current, g->p.pos);
 }
 
 static	void	player_start(t_game *g)
@@ -95,25 +95,29 @@ static	void	player_start(t_game *g)
 static int	animate(t_game *g)
 {
 	static int	delay;
-	
+
 	if (++delay < 1000)
 		return 0;
+	delay = 0;
+
 	if (g->p.anim.animating)
 		g->p.anim.frame = (g->p.anim.frame + 1) % g->p.anim.nb_frame;
 	else
 		g->p.anim.frame = 0;
 
-	if (g->p.anim.down && (g->map->map[(g->p.pos.y + 5) / 32][g->p.pos.x / 32] != 1))
+	if (g->p.anim.down && (g->map->map[(g->p.pos.y + 5) / 32][g->p.pos.x / 32] != '1'))
 		g->p.pos.y = (g->p.pos.y + 5 < g->world.pos.y - g->p.sprite.pos.y) ? g->p.pos.y + 5 : g->p.pos.y;
-	if (g->p.anim.up && (g->map->map[(g->p.pos.y - 5) / 32][g->p.pos.x / 32] != 1))
+	if (g->p.anim.up && (g->map->map[(g->p.pos.y - 5) / 32][g->p.pos.x / 32] != '1'))
 		g->p.pos.y = (g->p.pos.y - 5 >= 0) ? g->p.pos.y - 5 : g->p.pos.y;
-	if (g->p.anim.right && (g->map->map[g->p.pos.y / 32][(g->p.pos.x + 5) / 32] != 1))
+	if (g->p.anim.right && (g->map->map[g->p.pos.y / 32][(g->p.pos.x + 5) / 32] != '1'))
 		g->p.pos.x = (g->p.pos.x + 5 < g->world.pos.x - g->p.sprite.pos.x) ? g->p.pos.x + 5 : g->p.pos.x;
-	if (g->p.anim.left && (g->map->map[g->p.pos.y / 32][(g->p.pos.x - 5) / 32] != 1))
+	if (g->p.anim.left && (g->map->map[g->p.pos.y / 32][(g->p.pos.x - 5) / 32] != '1'))
 		g->p.pos.x = (g->p.pos.x - 5 >= 0) ? g->p.pos.x - 5 : g->p.pos.x;
 
 	g->p.anim.animating = (g->p.anim.down || g->p.anim.up || g->p.anim.right || g->p.anim.left);
-	draw_p(g);
+
+	render_map(g, g->map); // Redraw the map
+	draw_p(g); // Draw the player
 	update_cam(g);
 	mlx_put_image_to_window(g->mlx, g->win.win, g->cam.img, 0, 0);
 	return 0;
@@ -157,7 +161,7 @@ static int	keyrelease(int key, t_game *g)
 	else if (key == XK_Right || key == XK_d)
 		g->p.anim.right = 0;
 
-	if (g->p.anim.down || g->p.anim.down || g->p.anim.right || !g->p.anim.left)
+	if (!g->p.anim.down && !g->p.anim.up && !g->p.anim.right && !g->p.anim.left)
 	{
 		g->p.anim.animating = false;
 		g->p.anim.frame = 0;
@@ -167,7 +171,6 @@ static int	keyrelease(int key, t_game *g)
 
 static void	loop(t_game *g)
 {
-	render_map(g, g->map);
 	mlx_hook(g->win.win, 2, 1L<<0, keypress, g);
 	mlx_hook(g->win.win, 3, 1L<<1, keyrelease, g);
 	mlx_loop_hook(g->mlx, animate, g);
