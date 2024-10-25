@@ -17,7 +17,6 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <sys/time.h>
-# include "structs.h"
 # include "map.h"
 # include "cam.h"
 # include "world.h"

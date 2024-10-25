@@ -13,6 +13,7 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
+#include "game.h"
 # include <stdbool.h>
 
 typedef struct s_vector
@@ -58,12 +59,24 @@ typedef struct s_win
 	t_vector	size;
 }		t_win;
 
+typedef struct	s_sprite
+{
+	int		frame;
+	int		nb_frame;
+	int		row;
+	bool	animating;
+}	t_sprite;
+
 typedef struct s_player
 {
 	t_vector		pos;
 	t_img			sprite;
+	t_img			current;
+	t_img			atack;
+	t_sprite		anim;
 	int				health;
 	int				score;
+	t_area			ar;
 	unsigned int	walk;
 }	t_player;
 
@@ -77,6 +90,7 @@ typedef struct s_colectable
 typedef struct s_enemy
 {
 	t_vector	pos;
+	t_area		area;
 	t_img		sprite;
 }	t_enemy;
 

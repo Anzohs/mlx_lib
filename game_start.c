@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "inc/game.h"
+#include "inc/structs.h"
 #include "mlx/mlx.h"
 #include <stdio.h> // For debug prints
 
@@ -25,83 +26,50 @@ static void	free_tmap(t_map *m)
 	free(m);
 }
 
-static void	draw_tile(t_game *g, t_img *img, int x, int y)
+static void	player_to_world(t_img *w, t_img *p, t_vector pos)
 {
-	int				j;
-	int				i;
+	int				y;
+	int				x;
 	unsigned int	color;
 
-	i = -1;
-	while (++i < 32)
-	{
-		j = -1;
-		while (++j < 32)
-		{
-			color = *(unsigned int *)(img->addr + ((i % 16) * img->line_len + \
-				(j % 16) * (img->bpp / 8)));
-			*(unsigned int *)(g->world.addr + ((y + i) * g->world.line_len + \
-				(x + j) * (g->world.bpp / 8))) = color;
-		}
-	}
-}
-
-static void	render_map(t_game *g, t_map *m)
-{
-	int	y;
-	int	x;
-
 	y = -1;
-	while (++y < m->size.y)
+	while(++y < p->pos.y)
 	{
 		x = -1;
-		while (++x < m->size.x)
+		while (++x < p->pos.x)
 		{
-			if (m->map[y][x] == '1')
-				draw_tile(g, &g->i_map.wall, x * 32, y * 32);
-			else
-				draw_tile(g, &g->i_map.floor, x * 32, y * 32);
+			color = *(unsigned int *)(p->addr + (y * p->line_len + x * (p->bpp / 8)));
+			if (color != 0xFF000000)
+				*(unsigned int *)(w->addr + ((pos.y + y) * w->line_len + (pos.x + x) * (w->bpp / 8))) = color;
 		}
 	}
 }
 
-static void	init_cam(t_game *g, t_vector s)
+static void	draw_p(t_game *g)
 {
-	g->cam.img = mlx_new_image(g->mlx, s.x, s.y);
-	g->cam.addr = mlx_get_data_addr(g->cam.img, &g->cam.bpp, &g->cam.line_len, &g->cam.endian);
-	g->cam.pos = s;
+	if (g->p.current.img)
+		mlx_destroy_image(g->mlx, g->p.current.img);
+	g->p.current.img = mlx_new_image(g->mlx, g->p.sprite.pos.x, g->p.sprite.pos.y);
+	g->p.current.addr = mlx_get_data_addr(g->p.current.img, &g->p.current.bpp, &g->p.current.line_len, &g->p.current.endian);
+	player_to_world(&g->world, &g->p.sprite, g->p.pos);
 }
 
-static void	copy_image(t_img *src, t_img *dst, t_vector src_pos, t_vector size)
+static	void	player_start(t_game *g)
 {
-	int x, y;
-	unsigned int color;
-
-	for (y = 0; y < size.y; y++)
-	{
-		for (x = 0; x < size.x; x++)
-		{
-			color = *(unsigned int *)(src->addr + ((src_pos.y + y) * src->line_len + (src_pos.x + x) * (src->bpp / 8)));
-			*(unsigned int *)(dst->addr + (y * dst->line_len + x * (dst->bpp / 8))) = color;
-		}
-	}
-}
-
-static void update_camera(t_game *g)
-{
-	t_vector cam_pos;
-
-	cam_pos.x = g->p.pos.x - g->win.size.x / 2;
-	cam_pos.y = g->p.pos.y - g->win.size.y / 2;
-	if (cam_pos.x + 800 > g->world.pos.x)
-		cam_pos.x = g->world.pos.x - 800;
-	if (cam_pos.y + 600 > g->world.pos.y)
-		cam_pos.y = g->world.pos.y - 600;
-	if (cam_pos.x < 0)
-		cam_pos.x = 0;
-	if (cam_pos.y < 0)
-		cam_pos.y = 0;
-
-	copy_image(&g->world, &g->cam, cam_pos, g->win.size);
+	g->p.ar = (t_area){g->p.pos, (t_vector){16, 32}};
+	g->p.score = 0;
+	g->p.health = 3;
+	g->p.walk = 0;
+	g->p.sprite = (t_img){0};
+	g->p.sprite.img = mlx_xpm_file_to_image(g->mlx, "character_walk.xpm", &g->p.sprite.pos.x, &g->p.sprite.pos.y);
+	g->p.sprite.addr = mlx_get_data_addr(g->p.sprite.img, &g->p.sprite.bpp, &g->p.sprite.line_len, &g->p.sprite.endian);
+	g->p.sprite.pos.x = 16;
+	g->p.sprite.pos.y = 32;
+	g->p.anim.frame = 0;
+	g->p.anim.nb_frame = 4;
+	g->p.anim.row = 0;
+	g->p.anim.animating = false;
+	g->p.current = (t_img){0};
 }
 
 void	game_start(t_map map)
@@ -116,7 +84,9 @@ void	game_start(t_map map)
 	init_cam(g, (t_vector){800, 600});
 	write_world(g, map);
 	render_map(g, &map);
-	update_camera(g);
+	player_start(g);
+	draw_p(g);
+	update_cam(g);
 	mlx_put_image_to_window(g->mlx, g->win.win, g->cam.img, 0, 0);
-	mlx_loop(g->mlx);
+	g->loop(g);
 }

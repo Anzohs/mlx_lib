@@ -15,4 +15,6 @@
 
 # include "structs.h"
 
+void	update_cam(t_game *g);
+void	init_cam(t_game *g, t_vector s);
 #endif
