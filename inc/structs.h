@@ -65,6 +65,10 @@ typedef struct	s_sprite
 	int		nb_frame;
 	int		row;
 	bool	animating;
+	int		left;
+	int		right;
+	int		down;
+	int		up;
 }	t_sprite;
 
 typedef struct s_player
@@ -115,6 +119,7 @@ typedef struct s_game
 	t_b				i_map;
 	t_img			cam;
 	t_img			world;
+	t_map			*map;
 	t_vector		size;
 	t_player		p;
 	t_colectable	*c;
