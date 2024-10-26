@@ -20,6 +20,7 @@
 # include "map.h"
 # include "cam.h"
 # include "world.h"
+# include "player.h"
 # include "../mlx/mlx.h"
 # include "libft/libft.h"
 
@@ -28,6 +29,7 @@ typedef struct s_map	t_map;
 void	game_start(t_map map);
 
 t_game	*init_game(char *name, t_vector s);
+double	get_delta(void);
 void	put_pixel(t_game *img, int x, int y, unsigned int color);
 int		exit_t(t_game *g);
 

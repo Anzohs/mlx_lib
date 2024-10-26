@@ -13,7 +13,6 @@
 #ifndef STRUCTS_H
 # define STRUCTS_H
 
-#include "game.h"
 # include <stdbool.h>
 
 typedef struct s_vector
@@ -124,7 +123,9 @@ typedef struct s_game
 	t_player		p;
 	t_colectable	*c;
 	t_exit			e;
+	double			dt;
 	void			(*loop)(struct s_game *g);
+	int				(*animate)(struct s_game *g);
 }		t_game;
 
 #endif
