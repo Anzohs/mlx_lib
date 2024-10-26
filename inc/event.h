@@ -1,33 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_delta.c                                        :+:      :+:    :+:   */
+/*   event.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 02:47:56 by hladeiro          #+#    #+#             */
-/*   Updated: 2024/10/26 02:47:58 by hladeiro         ###   ########.fr       */
+/*   Created: 2024/10/26 19:00:42 by hladeiro          #+#    #+#             */
+/*   Updated: 2024/10/26 19:00:43 by hladeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/game.h"
+#ifndef EVENT_H
+# define EVENT_H
 
-static double	get_time_in_seconds(void)
-{
-	struct timespec	ts;
+# include "structs.h"
 
-	clock_gettime(CLOCK_MONOTONIC, &ts);
-	return (ts.tv_sec + ts.tv_nsec / 1e9);
-}
+void		event_handler(t_game *game);
 
-double	get_delta(void)
-{
-	static double	last_frame;
-	double			current;
-	double			dt;
-
-	current = get_time_in_seconds();
-	dt = current - last_frame;
-	last_frame = current;
-	return (dt);
-}
+#endif

@@ -16,11 +16,12 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
-# include <sys/time.h>
+# include <time.h>
 # include "map.h"
 # include "cam.h"
 # include "world.h"
 # include "player.h"
+# include "event.h"
 # include "../mlx/mlx.h"
 # include "libft/libft.h"
 

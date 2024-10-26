@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "inc/game.h"
-#include "inc/structs.h"
 #include "time.h"
 
 void	loop(t_game	*g)
@@ -29,7 +28,7 @@ int	exit_t(t_game *g)
 			mlx_destroy_image(g->mlx, g->world.img);
 		if (g->mlx)
 		{
-			//mlx_destroy_display(g->mlx);
+			mlx_destroy_display(g->mlx);
 			free(g->mlx);
 		}
 		free(g);
@@ -52,14 +51,8 @@ static int	limit_fps(unsigned int frame_rendering_time, unsigned int fps_max)
 
 static int	update(t_game *g)
 {
-	//clock_t	update_time;
-
-
-	if(g->animate)
+	if (g->animate)
 		g->animate(g);
-	//update_time = clock();
-	//g->frame_rendering_time = clock() - update_time;
-	//g->fps = limit_fps(g->frame_rendering_time, 60);
 	return (0);
 }
 
@@ -81,7 +74,7 @@ t_game	*init_game(char *name, t_vector s)
 	game->win.size = s;
 	game->loop = loop;
 	game->p = (t_player){0};
-	game->dt = 0;
+	game->dt = get_delta;
 	mlx_loop_hook(game->mlx, &update, game);
 	return (game);
 }

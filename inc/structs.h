@@ -58,7 +58,7 @@ typedef struct s_win
 	t_vector	size;
 }		t_win;
 
-typedef struct	s_sprite
+typedef struct s_sprite
 {
 	int		frame;
 	int		nb_frame;
@@ -123,7 +123,7 @@ typedef struct s_game
 	t_player		p;
 	t_colectable	*c;
 	t_exit			e;
-	double			dt;
+	double			(*dt)(void);
 	void			(*loop)(struct s_game *g);
 	int				(*animate)(struct s_game *g);
 }		t_game;

@@ -1,9 +1,21 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update_cam.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/10/26 18:07:04 by hladeiro          #+#    #+#             */
+/*   Updated: 2024/10/26 18:07:05 by hladeiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/game.h"
 
 static void	copy_img(t_img *src, t_img *dst, t_vector src_pos, t_vector size)
 {
-	int	x;
-	int	y;
+	int				x;
+	int				y;
 	unsigned int	color;
 
 	y = -1;
@@ -12,8 +24,10 @@ static void	copy_img(t_img *src, t_img *dst, t_vector src_pos, t_vector size)
 		x = -1;
 		while (++x < size.x)
 		{
-			color = *(unsigned int *)(src->addr + ((src_pos.y + y) * src->line_len + (src_pos.x + x) * (src->bpp / 8)));
-			*(unsigned int *)(dst->addr + (y * dst->line_len + x * (dst->bpp / 8))) = color;
+			color = *(unsigned int *)(src->addr + ((src_pos.y + y) \
+				* src->line_len + (src_pos.x + x) * (src->bpp / 8)));
+			*(unsigned int *)(dst->addr + \
+				(y * dst->line_len + x * (dst->bpp / 8))) = color;
 		}
 	}
 }

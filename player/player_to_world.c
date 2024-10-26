@@ -1,33 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_delta.c                                        :+:      :+:    :+:   */
+/*   player_to_world.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 02:47:56 by hladeiro          #+#    #+#             */
-/*   Updated: 2024/10/26 02:47:58 by hladeiro         ###   ########.fr       */
+/*   Created: 2024/10/26 18:51:18 by hladeiro          #+#    #+#             */
+/*   Updated: 2024/10/26 18:51:19 by hladeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/game.h"
 
-static double	get_time_in_seconds(void)
+void	player_to_world(t_img *w, t_img *p, t_vector pos)
 {
-	struct timespec	ts;
+	int				y;
+	int				x;
+	unsigned int	color;
 
-	clock_gettime(CLOCK_MONOTONIC, &ts);
-	return (ts.tv_sec + ts.tv_nsec / 1e9);
-}
-
-double	get_delta(void)
-{
-	static double	last_frame;
-	double			current;
-	double			dt;
-
-	current = get_time_in_seconds();
-	dt = current - last_frame;
-	last_frame = current;
-	return (dt);
+	y = -1;
+	while (++y < p->pos.y)
+	{
+		x = -1;
+		while (++x < p->pos.x)
+		{
+			color = *(unsigned int *)(p->addr + \
+				(y * p->line_len + x * (p->bpp / 8)));
+			if ((color & 0x00FFFFFF) != 0)
+				*(unsigned int *)(w->addr + ((pos.y + y) * \
+					w->line_len + (pos.x + x) * (w->bpp / 8))) = color;
+		}
+	}
 }
