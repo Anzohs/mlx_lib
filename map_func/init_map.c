@@ -53,6 +53,8 @@ static char	*str_cpyn(char *src)
 	char	*dst;
 
 	i = -1;
+	if (!src)
+		return (NULL);
 	if (src[ft_strlen(src) - 1] == '\n')
 		len = ft_strlen(src);
 	else
@@ -64,28 +66,21 @@ static char	*str_cpyn(char *src)
 	{
 		dst[i] = src[i];
 	}
+	free(src);
 	return (dst);
 }
 
 static void	copy_map(t_map *m, int fd)
 {
-	char	*line;
 	int		i;
 
-	line = get_next_line(fd);
 	i = 0;
-	while (line)
+	while (1)
 	{
-		m->map[i] = str_cpyn(line);
-		free(line);
+		m->map[i] = str_cpyn(get_next_line(fd));
 		if (!m->map[i++])
-		{
-			close(fd);
-			free_map(m);
-		}
-		line = get_next_line(fd);
+			break;
 	}
-	free(line);
 	close(fd);
 }
 
@@ -99,7 +94,7 @@ t_map	init_map(char *file)
 	m.size = get_dimensions(file);
 	if (m.size.y < 3)
 		error_message(2);
-	m.map = (char **)ft_calloc(m.size.y + 1, sizeof(char *));
+	m.map = ft_calloc(m.size.y + 1, sizeof(char *));
 	fd = open(file, O_RDONLY);
 	if (!m.map || fd < 0)
 	{

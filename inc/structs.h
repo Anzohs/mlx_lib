@@ -14,6 +14,9 @@
 # define STRUCTS_H
 
 # include <stdbool.h>
+#include <unistd.h>
+
+typedef struct s_game t_game;
 
 typedef struct s_vector
 {
@@ -86,9 +89,22 @@ typedef struct s_player
 typedef struct s_colectable
 {
 	t_vector	pos;
-	t_img		img;
+	t_img		current;
+	int			frame;
+	int			nb_frame;
 	bool		collected;
+	bool		(*is_colliding)(struct s_colectable c, t_player p);
+	bool		(*draw)(struct s_colectable c);
+	void		(*change)(struct s_colectable *c);
+	void		(*update)(struct s_colectable *c);
 }	t_colectable;
+
+typedef struct s_col
+{
+	t_img			sprite;
+	t_img			col;
+	t_colectable	*c;
+}	t_col;
 
 typedef struct s_enemy
 {
@@ -110,7 +126,7 @@ typedef struct s_b
 	t_img	floor;
 }		t_b;
 
-typedef struct s_game
+struct s_game
 {
 	void			*mlx;
 	t_win			win;
@@ -121,11 +137,11 @@ typedef struct s_game
 	t_map			*map;
 	t_vector		size;
 	t_player		p;
-	t_colectable	*c;
+	t_col			c;
 	t_exit			e;
 	double			(*dt)(void);
 	void			(*loop)(struct s_game *g);
 	int				(*animate)(struct s_game *g);
-}		t_game;
+};
 
 #endif

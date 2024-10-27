@@ -15,9 +15,13 @@
 
 static void	flood_fill(t_map *m, int w, int h, bool **visited)
 {
-	if (w < 0 || h < 0 || !m->map[h][w] || visited[h][w] || \
-		m->map[h][w] == '1' || w >= m->size.x || h >= m->size.y)
+	if (w < 0 || h < 0 || w >= m->size.x || h >= m->size.y ||!m->map[h][w] || visited[h][w] )
+		return;
+	if (m->map[h][w] == '1')
+	{
+		visited[h][w] = true;
 		return ;
+	}
 	visited[h][w] = true;
 	flood_fill(m, w + 1, h, visited);
 	flood_fill(m, w - 1, h, visited);
@@ -42,7 +46,7 @@ static int	aloc_bool(bool **v, int y, int x)
 	i = -1;
 	while (++i < y)
 	{
-		v[i] = (bool *)ft_calloc(x, sizeof(bool));
+		v[i] = ft_calloc(x + 1, sizeof(bool));
 		if (!v[i])
 		{
 			free_visited(v, y);
@@ -80,7 +84,7 @@ int	fload_helper(t_map *m)
 	bool	**visited;
 	bool	v;
 
-	visited = (bool **)ft_calloc(m->size.y, sizeof(bool *));
+	visited = ft_calloc(m->size.y + 1, sizeof(bool *));
 	if (!visited)
 		return (0);
 	if (!aloc_bool(visited, m->size.y, m->size.x))

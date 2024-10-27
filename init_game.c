@@ -28,7 +28,7 @@ int	exit_t(t_game *g)
 			mlx_destroy_image(g->mlx, g->world.img);
 		if (g->mlx)
 		{
-			//mlx_destroy_display(g->mlx);
+			mlx_destroy_display(g->mlx);
 			free(g->mlx);
 		}
 		free(g);

@@ -22,6 +22,7 @@
 # include "world.h"
 # include "player.h"
 # include "event.h"
+# include "collectable.h"
 # include "../mlx/mlx.h"
 # include "libft/libft.h"
 

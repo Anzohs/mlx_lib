@@ -42,7 +42,7 @@ static void	check_pos(t_map *m, int y)
 	int	x;
 	int	i;
 
-	m->c_pos = (t_vector *)ft_calloc(m->e + 1, sizeof(t_vector));
+	m->c_pos = (t_vector *)ft_calloc(m->c + 1, sizeof(t_vector));
 	if (!m->c_pos)
 		free_map(m);
 	i = 0;
@@ -97,7 +97,7 @@ static int	check_map(t_map *m, int y)
 int	fload_fill(t_map *m)
 {
 	int	y;
-
+	//m->c = 0;
 	if (!check_map(m, -1) || !check_borders(m->map, m->size.x - 1, m->size.y))
 		return (0);
 	check_pos(m, -1);
