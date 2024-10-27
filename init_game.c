@@ -28,25 +28,13 @@ int	exit_t(t_game *g)
 			mlx_destroy_image(g->mlx, g->world.img);
 		if (g->mlx)
 		{
-			mlx_destroy_display(g->mlx);
+			//mlx_destroy_display(g->mlx);
 			free(g->mlx);
 		}
 		free(g);
 	}
 	exit(0);
 	return (0);
-}
-
-static int	limit_fps(unsigned int frame_rendering_time, unsigned int fps_max)
-{
-	if (!fps_max)
-		fps_max = 60;
-	if (frame_rendering_time < (CLOCKS_PER_SEC / fps_max))
-	{
-		usleep((CLOCKS_PER_SEC / fps_max) - frame_rendering_time);
-		frame_rendering_time = (CLOCKS_PER_SEC / fps_max);
-	}
-	return (CLOCKS_PER_SEC / frame_rendering_time);
 }
 
 static int	update(t_game *g)

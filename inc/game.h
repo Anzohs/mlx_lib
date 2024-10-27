@@ -13,12 +13,12 @@
 #ifndef GAME_H
 # define GAME_H
 
-# include <stdio.h>
 # include <stdlib.h>
 # include <stdbool.h>
 # include <time.h>
 # include "map.h"
 # include "cam.h"
+# include "structs.h"
 # include "world.h"
 # include "player.h"
 # include "event.h"
@@ -31,7 +31,7 @@ void	game_start(t_map map);
 
 t_game	*init_game(char *name, t_vector s);
 double	get_delta(void);
-void	put_pixel(t_game *img, int x, int y, unsigned int color);
 int		exit_t(t_game *g);
+int		update_game(t_game *g, double dt);
 
 #endif

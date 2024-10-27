@@ -23,22 +23,22 @@ static int	keypress(int key, t_game *g)
 {
 	if (key == 53)
 		exit(0);
-	if (key == 119)
+	if (key == 119 || key == 13)
 	{
 		g->p.anim.up = 1;
 		set_anim(g, 2);
 	}
-	else if (key == 115)
+	if (key == 115 || key == 1)
 	{
 		g->p.anim.down = 1;
 		set_anim(g, 0);
 	}
-	else if (key == 97)
+	if (key == 97 || key == 0)
 	{
 		g->p.anim.left = 1;
 		set_anim(g, 3);
 	}
-	else if (key == 100)
+	if (key == 100 || key == 2)
 	{
 		g->p.anim.right = 1;
 		set_anim(g, 1);
@@ -48,13 +48,13 @@ static int	keypress(int key, t_game *g)
 
 static int	keyrelease(int k, t_game *g)
 {
-	if (k == 119)
+	if (k == 119 || k == 13)
 		g->p.anim.up = 0;
-	else if (k == 115)
+	if (k == 115 || k == 1)
 		g->p.anim.down = 0;
-	else if (k == 97)
+	if (k == 97 || k == 0)
 		g->p.anim.left = 0;
-	else if (k == 100)
+	if (k == 100 || k == 2)
 		g->p.anim.right = 0;
 	if (!g->p.anim.down && !g->p.anim.up && !g->p.anim.left && !g->p.anim.right)
 	{
