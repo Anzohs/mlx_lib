@@ -1,35 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_game.c                                      :+:      :+:    :+:   */
+/*   update_col.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 22:19:42 by hladeiro          #+#    #+#             */
-/*   Updated: 2024/10/26 22:19:43 by hladeiro         ###   ########.fr       */
+/*   Created: 2024/10/28 17:55:07 by hladeiro          #+#    #+#             */
+/*   Updated: 2024/10/28 17:55:08 by hladeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/game.h"
 
-static void	game_to_win(t_game *g)
+void	update_col(t_game *g, double dt)
 {
-	mlx_put_image_to_window(g->mlx, g->win.win, g->cam.img, 0, 0);
-}
+	int	i;
 
-static void	render_game(t_game *g)
-{
-	render_map(g, g->map);
-	render_coll(g);
-	draw_p(g, g->p.anim.frame * g->p.sprite.pos.x, g->p.anim.row * g->p.sprite.pos.y);
-	update_cam(g);
-	game_to_win(g);
-}
-
-int	update_game(t_game *g, double dt)
-{
-	player_update(g, &g->p, dt);
-	update_col(g, dt);
-	render_game(g);
-	return (1);
+	i = -1;
+	while (++i < g->map->c)
+	{
+		collectable_update(&g->c.c[i], dt);
+		if (!g->c.c[i].collected && is_colliding(g->c.c[i], g->p))
+		{
+			g->c.c[i].collected = true;
+			g->c.c[i].nb_frame -= 1;
+			g->c.c[i].frame = g->c.c[i].nb_frame - 1;
+			g->p.score++;
+		}
+	}
 }

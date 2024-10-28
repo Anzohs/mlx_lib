@@ -97,7 +97,6 @@ static int	check_map(t_map *m, int y)
 int	fload_fill(t_map *m)
 {
 	int	y;
-	//m->c = 0;
 	if (!check_map(m, -1) || !check_borders(m->map, m->size.x - 1, m->size.y))
 		return (0);
 	check_pos(m, -1);

@@ -1,35 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   update_game.c                                      :+:      :+:    :+:   */
+/*   collected_img.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/10/26 22:19:42 by hladeiro          #+#    #+#             */
-/*   Updated: 2024/10/26 22:19:43 by hladeiro         ###   ########.fr       */
+/*   Created: 2024/10/28 18:57:02 by hladeiro          #+#    #+#             */
+/*   Updated: 2024/10/28 18:57:03 by hladeiro         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/game.h"
 
-static void	game_to_win(t_game *g)
+void	collected_img(t_game *g, t_col *c)
 {
-	mlx_put_image_to_window(g->mlx, g->win.win, g->cam.img, 0, 0);
-}
-
-static void	render_game(t_game *g)
-{
-	render_map(g, g->map);
-	render_coll(g);
-	draw_p(g, g->p.anim.frame * g->p.sprite.pos.x, g->p.anim.row * g->p.sprite.pos.y);
-	update_cam(g);
-	game_to_win(g);
-}
-
-int	update_game(t_game *g, double dt)
-{
-	player_update(g, &g->p, dt);
-	update_col(g, dt);
-	render_game(g);
-	return (1);
+	c->col.img = mlx_xpm_file_to_image(g->mlx, "crystal_collected.xpm", \
+		&c->col.pos.x, &c->col.pos.y);
+	c->col.addr = mlx_get_data_addr(c->col.img, &c->col.bpp, \
+		&c->col.line_len, &c->col.endian);
+	c->col.pos = (t_vector){16, 16};
 }
