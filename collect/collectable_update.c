@@ -15,15 +15,13 @@ static int	anim_index(double *time, int nb_frames, int frame, double fps)
 
 void	collectable_update(t_colectable *c, double dt)
 {
-	static double	acc_time;
-	static double	anim_acc_time;
 	const double	fps = 1.0 / 30.0;
 
-	acc_time += dt;
-	while (acc_time >= fps)
+	c->acc_time += dt;
+	while (c->acc_time >= fps)
 	{
-		c->frame = anim_index(&anim_acc_time, \
+		c->frame = anim_index(&c->anim_acc_time, \
 			c->nb_frame, c->frame, fps);
-		acc_time -= fps;
+		c->acc_time -= fps;
 	}
 }

@@ -93,10 +93,9 @@ typedef struct s_colectable
 	int			frame;
 	int			nb_frame;
 	bool		collected;
+	double 	acc_time;
+	double 	anim_acc_time;
 	bool		(*is_colliding)(struct s_colectable c, t_player p);
-	bool		(*draw)(struct s_colectable c);
-	void		(*change)(struct s_colectable *c);
-	void		(*update)(struct s_colectable *c);
 }	t_colectable;
 
 typedef struct s_col

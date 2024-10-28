@@ -11,5 +11,5 @@ static bool		check_pos(t_area a1, t_area a2)
 
 bool	is_colliding(t_colectable c, t_player p)
 {
-	return (check_pos((t_area){c.pos, (t_vector){c.pos.x + 16, c.pos.x + 16}}, (t_area){p.pos,(t_vector){p.pos.x + 16, p.pos.y + 32}}));
+	return (check_pos((t_area){c.pos, (t_vector){c.pos.x + 16, c.pos.y + 16}}, (t_area){p.pos,(t_vector){p.pos.x + 16, p.pos.y + 27}}));
 }

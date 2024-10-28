@@ -86,7 +86,8 @@ static void coll_up(t_game *g, double dt)
 		if (!g->c.c[i].collected && is_colliding(g->c.c[i], g->p))
 		{
 			g->c.c[i].collected = true;
-			// Add any additional logic for when a collectable is collected
+			g->c.c[i].nb_frame -=1;
+			g->p.score++;
 		}
 	}
 }
