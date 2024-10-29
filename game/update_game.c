@@ -64,7 +64,7 @@ static void	exit_to_w(t_img *w, t_img *e, t_vector pos)
 static	void	draw_e(t_game *g)
 {
 	pixel_e(g, 0, 0);
-	exit_to_w(g->world.img, &g->e.sprite, g->e.pos);
+	exit_to_w(g->world.img, &g->e.sprite, g->e.sprite.pos);
 }
 
 static void	render_game(t_game *g)
