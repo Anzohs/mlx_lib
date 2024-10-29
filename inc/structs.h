@@ -14,9 +14,8 @@
 # define STRUCTS_H
 
 # include <stdbool.h>
-#include <unistd.h>
 
-typedef struct s_game t_game;
+typedef struct s_game	t_game;
 
 typedef struct s_vector
 {
@@ -93,8 +92,8 @@ typedef struct s_colectable
 	int			frame;
 	int			nb_frame;
 	bool		collected;
-	double 	acc_time;
-	double 	anim_acc_time;
+	double		acc_time;
+	double		anim_acc_time;
 	bool		(*is_colliding)(struct s_colectable c, t_player p);
 }	t_colectable;
 

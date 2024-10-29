@@ -18,7 +18,10 @@ static void	collide_left(t_player *p, t_map *map, int x, int y)
 			map->map[(y + 31) / 32][x / 32] == '1' || \
 			map->map[y / 32][x / 32] == '1' || \
 			map->map[(y + 32 - 1) / 32][x / 32] == '1'))
+	{
 		p->pos.x = x;
+		p->walk++;
+	}
 }
 
 static void	collide_right(t_player *p, t_map *map, int x, int y)
@@ -27,7 +30,10 @@ static void	collide_right(t_player *p, t_map *map, int x, int y)
 			map->map[(y + 31) / 32][(x + 15) / 32] == '1' || \
 			map->map[y / 32][(x + 16 - 1) / 32] == '1' || \
 			map->map[(y + 32 - 1) / 32][(x + 16 - 1) / 32] == '1'))
+	{
 		p->pos.x = x;
+		p->walk++;
+	}
 }
 
 static void	collide_up(t_player *p, t_map *map, int x, int y)
@@ -36,7 +42,10 @@ static void	collide_up(t_player *p, t_map *map, int x, int y)
 			map->map[y / 32][(x + 15) / 32] == '1' || \
 			map->map[y / 32][x / 32] == '1' || \
 			map->map[y / 32][(x + 16 - 1) / 32] == '1'))
+	{
 		p->pos.y = y;
+		p->walk++;
+	}
 }
 
 static void	collide_down(t_player *p, t_map *map, int x, int y)
@@ -45,7 +54,10 @@ static void	collide_down(t_player *p, t_map *map, int x, int y)
 			map->map[(y + 31) / 32][(x + 15) / 32] == '1' || \
 			map->map[(y + 32 - 1) / 32][x / 32] == '1' || \
 			map->map[(y + 32 - 1) / 32][(x + 16 - 1) / 32] == '1'))
+	{
 		p->pos.y = y;
+		p->walk++;
+	}
 }
 
 void	wall_collide(t_player *p, t_map *map, double dt)
