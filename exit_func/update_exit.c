@@ -24,5 +24,5 @@ void	update_exit(t_game *g)
 {
 	g->e.is_open = is_active(g->p.score, g->map->c);
 	if (g->e.is_open && player_exit(g->p, g->e))
-		exit(0);
+		ft_free_g(g, 0);
 }

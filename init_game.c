@@ -21,21 +21,8 @@ void	loop(t_game	*g)
 
 int	exit_t(t_game *g)
 {
-	if (g)
-	{
-		if (g->win.win)
-			mlx_destroy_window(g->mlx, g->win.win);
-		if (g->world.img)
-			mlx_destroy_image(g->mlx, g->world.img);
-		if (g->mlx)
-		{
-			//mlx_destroy_display(g->mlx);
-			free(g->mlx);
-		}
-		free(g);
-	}
-	exit(0);
-	return (0);
+	ft_free_g(g, 0);
+	return (1);
 }
 
 static int	update(t_game *g)

@@ -19,42 +19,58 @@ static void	set_anim(t_game *g, int r)
 	g->p.anim.animating = true;
 }
 
+static void	reset_flags(t_player *p)
+{
+	p->anim.up = 0;
+	p->anim.down = 0;
+	p->anim.left = 0;
+	p->anim.right = 0;
+}
+
 static int	keypress(int key, t_game *g)
 {
 	if (key == 53)
 		exit(0);
-	if (key == 119 || key == 13)
+	if ((key == 119 || key == 13) && !g->p.anim.sword_anim)
 	{
 		g->p.anim.up = 1;
 		set_anim(g, 2);
 	}
-	if (key == 115 || key == 1)
+	else if ((key == 115 || key == 1) && !g->p.anim.sword_anim)
 	{
 		g->p.anim.down = 1;
 		set_anim(g, 0);
 	}
-	if (key == 97 || key == 0)
+	else if ((key == 97 || key == 0) && !g->p.anim.sword_anim)
 	{
 		g->p.anim.left = 1;
 		set_anim(g, 3);
 	}
-	if (key == 100 || key == 2)
+	else if ((key == 100 || key == 2) && !g->p.anim.sword_anim)
 	{
 		g->p.anim.right = 1;
 		set_anim(g, 1);
+	}
+	else if (key == 32)
+	{
+		g->p.anim.sword_anim = true;
+		g->p.anim.animating = false;
+		g->p.anim.frame = 0;
 	}
 	return (0);
 }
 
 static int	keyrelease(int k, t_game *g)
 {
+	if (g->p.anim.sword_anim)
+		return (0);
 	if (k == 119 || k == 13)
 		g->p.anim.up = 0;
-	if (k == 115 || k == 1)
+	else if (k == 115 || k == 1)
 		g->p.anim.down = 0;
-	if (k == 97 || k == 0)
+	else if (k == 97 || k == 0)
 		g->p.anim.left = 0;
-	if (k == 100 || k == 2)
+	else if (k == 100 || k == 2)
 		g->p.anim.right = 0;
 	if (!g->p.anim.down && !g->p.anim.up && !g->p.anim.left && !g->p.anim.right)
 	{

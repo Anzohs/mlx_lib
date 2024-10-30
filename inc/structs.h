@@ -70,6 +70,7 @@ typedef struct s_sprite
 	int		right;
 	int		down;
 	int		up;
+	bool	sword_anim;
 }	t_sprite;
 
 typedef struct s_player

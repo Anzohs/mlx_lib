@@ -34,15 +34,76 @@ static void	pixel_copy(t_game *g, int src_x, int src_y)
 	}
 }
 
+static void	pixel_copy_sw(t_game *g, int src_x, int src_y)
+{
+	int				x;
+	int				y;
+	unsigned int	color;
+
+	y = -1;
+	while (++y < g->p.atack.pos.y)
+	{
+		x = -1;
+		while (++x < g->p.atack.pos.x)
+		{
+			color = *(unsigned int *)(g->p.atack.addr + ((src_y + y) * \
+				g->p.atack.line_len + (src_x + x) * (g->p.atack.bpp / 8)));
+			if (color != 0xFF000000)
+				*(unsigned int *)(g->p.current.addr + (y * \
+					g->p.current.line_len + x * \
+					(g->p.current.bpp / 8))) = color;
+		}
+	}
+}
+
+static void	player_attack(t_img *w, t_img *p, t_vector pos)
+{
+	int				y;
+	int				x;
+	unsigned int	color;
+	t_vector		v;
+
+	v = pos;
+	v.x = v.x -5;
+	y = -1;
+	while (++y < p->pos.y)
+	{
+		x = -1;
+		while (++x < p->pos.x)
+		{
+			color = *(unsigned int *)(p->addr + \
+				(y * p->line_len + x * (p->bpp / 8)));
+			if ((color & 0x00FFFFFF) != 0)
+				*(unsigned int *)(w->addr + ((pos.y + y) * \
+					w->line_len + (pos.x + x) * (w->bpp / 8))) = color;
+		}
+	}
+}
+
 void	draw_p(t_game *g, int src_x, int src_y)
 {
 	if (g->p.current.img)
 		mlx_destroy_image(g->mlx, g->p.current.img);
-	g->p.current.img = mlx_new_image(g->mlx, \
-		g->p.sprite.pos.x, g->p.sprite.pos.y);
+	if (g->p.anim.sword_anim)
+		g->p.current.img = mlx_new_image(g->mlx, g->p.atack.pos.x, g->p.atack.pos.y);
+	else
+		g->p.current.img = mlx_new_image(g->mlx, \
+			g->p.sprite.pos.x, g->p.sprite.pos.y);
 	g->p.current.addr = mlx_get_data_addr(g->p.current.img, &g->p.current.bpp, \
 		&g->p.current.line_len, &g->p.current.endian);
-	g->p.current.pos = g->p.sprite.pos;
-	pixel_copy(g, src_x, src_y);
-	player_to_world(&g->world, &g->p.current, g->p.pos);
+	if (g->p.anim.sword_anim)
+	{
+		t_vector adju = g->p.pos;
+		adju.x -= (g->p.atack.pos.x - g->p.sprite.pos.x) / 2;
+		adju.y -= (g->p.atack.pos.y - g->p.sprite.pos.y) / 2;
+		g->p.current.pos = g->p.atack.pos;
+		pixel_copy_sw(g, src_x, src_y);
+		player_attack(&g->world, &g->p.current, adju);
+	}
+	else
+	{
+		g->p.current.pos = g->p.sprite.pos;
+		pixel_copy(g, src_x, src_y);
+		player_to_world(&g->world, &g->p.current, g->p.pos);
+	}
 }

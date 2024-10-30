@@ -22,7 +22,10 @@ static void	render_game(t_game *g)
 	render_map(g, g->map);
 	draw_exit(g);
 	render_coll(g);
-	draw_p(g, g->p.anim.frame * g->p.sprite.pos.x, g->p.anim.row * g->p.sprite.pos.y);
+	if (g->p.anim.sword_anim)
+		draw_p(g, g->p.anim.frame * g->p.atack.pos.x, g->p.anim.row * g->p.atack.pos.y);
+	else
+		draw_p(g, g->p.anim.frame * g->p.sprite.pos.x, g->p.anim.row * g->p.sprite.pos.y);
 	update_cam(g);
 	game_to_win(g);
 }

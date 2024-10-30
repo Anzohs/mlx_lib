@@ -34,7 +34,18 @@ void	player_update(t_game *g, t_player *p, double dt)
 	acc_time += dt;
 	while (acc_time >= fps)
 	{
-		if (p->anim.animating)
+		if (p->anim.sword_anim)
+		{
+			p->anim.frame = anim_index(&anim_acc_time, \
+				p->anim.nb_frame, p->anim.frame, fps);
+			if (p->anim.frame == p->anim.nb_frame - 1)
+			{
+				p->anim.sword_anim = false;
+				p->anim.frame = 0;
+				return;
+			}
+		}
+		else if (p->anim.animating)
 			p->anim.frame = anim_index(&anim_acc_time, \
 				p->anim.nb_frame, p->anim.frame, fps);
 		wall_collide(p, g->map, dt);
