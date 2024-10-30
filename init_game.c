@@ -12,6 +12,7 @@
 
 #include "inc/game.h"
 #include "time.h"
+#include <stdlib.h>
 
 void	loop(t_game	*g)
 {
@@ -50,7 +51,7 @@ t_game	*init_game(char *name, t_vector s)
 
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	if (!game)
-		return (NULL);
+		exit(0);
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		exit_t(game);
