@@ -42,5 +42,6 @@ void	ft_free_game(t_game *g, int e)
 	free_map(g->map);
 	mlx_destroy_window(g->mlx, g->win.win);
 	//mlx_destroy_display(g->mlx);
+	free(g->mlx);
 	free(g);
 }
