@@ -33,6 +33,7 @@ void	ft_free_g(t_game *g, int e)
 	destroy_collectibles(&g->c, g->mlx, g->map->c);
 	img_destroy(g->mlx, g->e.sprite.img);
 	img_destroy(g->mlx, g->p.current.img);
+	img_destroy(g->mlx, g->p.atack.img);
 	img_destroy(g->mlx, g->p.sprite.img);
 	img_destroy(g->mlx, g->cam.img);
 	img_destroy(g->mlx, g->c.sprite.img);
@@ -44,7 +45,7 @@ void	ft_free_g(t_game *g, int e)
 	free_ttmap(g->map);
 	free(g->c.c);
 	mlx_destroy_window(g->mlx, g->win.win);
-	//mlx_destroy_display(g->mlx);
+	mlx_destroy_display(g->mlx);
 	free(g->mlx);
 	free(g);
 	exit(0);

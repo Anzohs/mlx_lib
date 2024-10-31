@@ -23,7 +23,8 @@ static int	keypress(int key, t_game *g)
 
 static int	keyrelease(int k, t_game *g)
 {
-	g->keydown[k] = false;
+	if (k < 280)
+		g->keydown[k] = false;
 	return (0);
 }
 
