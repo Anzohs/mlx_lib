@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "../inc/game.h"
-#include <stdbool.h>
 
 static void	set_anim(t_game *g, int r)
 {
@@ -29,8 +28,9 @@ static void	reset_flags(t_player *p)
 
 static int	keypress(int key, t_game *g)
 {
-	if (key == 53)
-		exit(0);
+	//g->keypress[key] = true;
+	if (key == 53 || key == 65307)
+		ft_free_g(g, 0);
 	if ((key == 119 || key == 13) && !g->p.anim.sword_anim)
 	{
 		g->p.anim.up = 1;
@@ -57,13 +57,13 @@ static int	keypress(int key, t_game *g)
 		g->p.anim.animating = false;
 		g->p.anim.frame = 0;
 	}
+	ft_putnbr_fd(key, 1);
 	return (0);
 }
 
 static int	keyrelease(int k, t_game *g)
 {
-	if (g->p.anim.sword_anim)
-		return (0);
+	//g->keypress[k] == false;
 	if (k == 119 || k == 13)
 		g->p.anim.up = 0;
 	else if (k == 115 || k == 1)
@@ -72,6 +72,8 @@ static int	keyrelease(int k, t_game *g)
 		g->p.anim.left = 0;
 	else if (k == 100 || k == 2)
 		g->p.anim.right = 0;
+	if (g->p.anim.sword_anim || k == 32)
+		g->p.anim.animating = true;
 	if (!g->p.anim.down && !g->p.anim.up && !g->p.anim.left && !g->p.anim.right)
 	{
 		g->p.anim.animating = false;
