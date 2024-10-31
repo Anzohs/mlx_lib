@@ -138,6 +138,7 @@ struct s_game
 	t_player		p;
 	t_col			c;
 	t_exit			e;
+	bool			keydown[280];
 	double			(*dt)(void);
 	void			(*loop)(struct s_game *g);
 	int				(*animate)(struct s_game *g);
