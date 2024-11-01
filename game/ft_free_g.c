@@ -2,7 +2,7 @@
 
 static void	img_destroy(void *mlx, void *img)
 {
-	if (img)
+	if (img && mlx)
 		mlx_destroy_image(mlx, img);
 }
 
@@ -30,7 +30,11 @@ void	ft_free_g(t_game *g, int e)
 {
 	if (e)
 		ft_putstr_fd("Fail to allocate memory \n", 2);
-	destroy_collectibles(&g->c, g->mlx, g->map->c);
+	if (g->c.c)
+	{
+		destroy_collectibles(&g->c, g->mlx, g->map->c);
+		free(g->c.c);
+	}
 	img_destroy(g->mlx, g->e.sprite.img);
 	img_destroy(g->mlx, g->p.current.img);
 	img_destroy(g->mlx, g->p.atack.img);
@@ -43,10 +47,11 @@ void	ft_free_g(t_game *g, int e)
 	img_destroy(g->mlx, g->world.img);
 	free(g->map->c_pos);
 	free_ttmap(g->map);
-	free(g->c.c);
-	mlx_destroy_window(g->mlx, g->win.win);
+	if (g->win.win)
+		mlx_destroy_window(g->mlx, g->win.win);
 	//mlx_destroy_display(g->mlx);
-	free(g->mlx);
+	if (g->mlx)
+		free(g->mlx);
 	free(g);
 	exit(0);
 }

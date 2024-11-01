@@ -49,6 +49,8 @@ void	draw_c(t_game *g, int src_x, int src_y, int n)
 		mlx_destroy_image(g->mlx, g->c.c[n].current.img);
 	g->c.c[n].current.img = mlx_new_image(g->mlx, \
 		g->c.sprite.pos.x, g->c.sprite.pos.y);
+	if (!g->c.c[n].current.img)
+		ft_free_g(g, 1);
 	g->c.c[n].current.addr = mlx_get_data_addr(g->c.c[n].current.img, \
 		&g->c.c[n].current.bpp, &g->c.c[n].current.line_len, \
 			&g->c.c[n].current.endian);

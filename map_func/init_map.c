@@ -35,7 +35,7 @@ static t_vector	get_dimensions(char *file)
 	while (line)
 	{
 		dim.y++;
-		if (dim.x != ft_strlen(line))
+		if (dim.x != (int)ft_strlen(line))
 			wrong_dimentions(fd, line, 2);
 		free(line);
 		line = get_next_line(fd);
@@ -79,7 +79,7 @@ static void	copy_map(t_map *m, int fd)
 	{
 		m->map[i] = str_cpyn(get_next_line(fd));
 		if (!m->map[i++])
-			break;
+			break ;
 	}
 	close(fd);
 }
@@ -87,10 +87,10 @@ static void	copy_map(t_map *m, int fd)
 t_map	init_map(char *file)
 {
 	t_map	m;
-	int		index;
 	int		fd;
 
 	m = (t_map){0};
+	m.x = 0;
 	m.size = get_dimensions(file);
 	if (m.size.y < 3)
 		error_message(2);

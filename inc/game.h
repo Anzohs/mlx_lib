@@ -23,6 +23,7 @@
 # include "player.h"
 # include "event.h"
 # include "exit.h"
+# include "enemy.h"
 # include "collectable.h"
 # include "../mlx/mlx.h"
 # include "libft/libft.h"
@@ -36,5 +37,7 @@ double	get_delta(void);
 int		exit_t(t_game *g);
 int		update_game(t_game *g, double dt);
 void	ft_free_g(t_game *g, int e);
+void	mlx_put_str(t_game *g);
+t_game	*init_game(char *name, t_vector s);
 
 #endif

@@ -43,7 +43,7 @@ void	player_update(t_game *g, t_player *p, double dt)
 				p->anim.sword_anim = false;
 				p->anim.frame = 0;
 				p->anim.animating = false;
-				return;
+				return ;
 			}
 		}
 		else if (p->anim.animating)

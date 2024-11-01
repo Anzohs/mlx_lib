@@ -35,11 +35,9 @@ static void	is_anim(t_player *p)
 	}
 }
 
-void	key_pressed(t_player *p, bool key[280])
+static void	animation(t_player *p, bool key[280])
 {
-	if ((key[32] || key[49]))
-		attack(p);
-	else if (key[13] || key[119])
+	if (key[13] || key[119])
 	{
 		p->anim.up = 1;
 		reset_flags(p, 2);
@@ -61,4 +59,12 @@ void	key_pressed(t_player *p, bool key[280])
 	}
 	else
 		is_anim(p);
+}
+
+void	key_pressed(t_player *p, bool key[280])
+{
+	if ((key[32] || key[49]) && !p->anim.sword_anim)
+		attack(p);
+	else if (!p->anim.sword_anim)
+		animation(p, key);
 }

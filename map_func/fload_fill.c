@@ -42,7 +42,9 @@ static void	check_pos(t_map *m, int y)
 	int	x;
 	int	i;
 
+	ft_putnbr_fd(m->x, 2);
 	m->c_pos = (t_vector *)ft_calloc(m->c + 1, sizeof(t_vector));
+	m->x_pos = (t_vector *)ft_calloc(m->x + 1, sizeof(t_vector));
 	if (!m->c_pos)
 		free_map(m);
 	i = 0;
@@ -60,6 +62,12 @@ static void	check_pos(t_map *m, int y)
 			{
 				m->c_pos[i].x = x;
 				m->c_pos[i].y = y;
+				i++;
+			}
+			if (m->map[y][x] == 'X')
+			{
+				m->x_pos[i].x = x;
+				m->x_pos[i].y = y;
 				i++;
 			}
 		}
@@ -87,6 +95,8 @@ static int	check_map(t_map *m, int y)
 				m->e++;
 			if (m->map[y][x] == 'C')
 				m->c++;
+			if (m->map[y][x] == 'X')
+				m->x++;
 		}
 	}
 	if (m->e != 1 || m->p != 1 || m->c < 1)
@@ -96,7 +106,6 @@ static int	check_map(t_map *m, int y)
 
 int	fload_fill(t_map *m)
 {
-	int	y;
 	if (!check_map(m, -1) || !check_borders(m->map, m->size.x - 1, m->size.y))
 		return (0);
 	check_pos(m, -1);

@@ -10,9 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "inc/game.h"
-#include "time.h"
-#include <stdlib.h>
+#include "../inc/game.h"
 
 void	loop(t_game	*g)
 {
@@ -41,11 +39,11 @@ t_game	*init_game(char *name, t_vector s)
 		exit(0);
 	game->mlx = mlx_init();
 	if (!game->mlx)
-		exit_t(game);
+		ft_free_g(game, 1);
 	game->win.mlx = game->mlx;
 	game->win.win = mlx_new_window(game->mlx, s.x, s.y, name);
 	if (!game->win.win)
-		exit_t(game);
+		ft_free_g(game, 1);
 	mlx_hook(game->win.win, 17, (1L << 0), &exit_t, game);
 	game->win.size = s;
 	game->loop = loop;

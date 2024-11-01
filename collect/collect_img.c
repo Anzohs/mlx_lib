@@ -16,6 +16,8 @@ void	collect_img(t_game *g, t_col *c)
 {
 	c->sprite.img = mlx_xpm_file_to_image(g->mlx, "cristal.xpm", \
 		&c->sprite.pos.x, &c->sprite.pos.y);
+	if (!c->sprite.img)
+		ft_free_g(g, 1);
 	c->sprite.addr = mlx_get_data_addr(c->sprite.img, &c->sprite.bpp, \
 		&c->sprite.line_len, &c->sprite.endian);
 	c->sprite.pos = (t_vector){16, 16};

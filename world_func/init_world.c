@@ -21,6 +21,8 @@ void	init_world(t_game *g, t_vector size)
 	if (g->world.pos.y < 600)
 		g->world.pos.y = 600;
 	g->world.img = mlx_new_image(g->mlx, g->world.pos.x, g->world.pos.y);
+	if (!g->world.img)
+		ft_free_g(g, 1);
 	g->world.addr = mlx_get_data_addr(g->world.img, &g->world.bpp, \
 		&g->world.line_len, &g->world.endian);
 }

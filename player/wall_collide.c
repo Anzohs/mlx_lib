@@ -63,7 +63,7 @@ static void	collide_down(t_player *p, t_map *map, int x, int y)
 void	wall_collide(t_player *p, t_map *map, double dt)
 {
 	if (p->anim.sword_anim)
-		return;
+		return ;
 	if (p->anim.down)
 		collide_down(p, map, p->pos.x, p->pos.y + ((3 * dt) + 2));
 	else if (p->anim.up)

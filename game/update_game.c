@@ -13,6 +13,8 @@
 #include "../inc/game.h"
 #include <stdbool.h>
 
+
+
 static void	game_to_win(t_game *g)
 {
 	mlx_put_image_to_window(g->mlx, g->win.win, g->cam.img, 0, 0);
@@ -22,6 +24,7 @@ static void	render_game(t_game *g)
 {
 	render_map(g, g->map);
 	draw_exit(g);
+	draw_enemy(g);
 	render_coll(g);
 	if (g->p.anim.sword_anim)
 		draw_p(g, g->p.anim.frame * g->p.atack.pos.x, g->p.anim.row * g->p.atack.pos.y);
@@ -42,5 +45,6 @@ int	update_game(t_game *g, double dt)
 	ft_putstr_fd("Player walk :", 1);
 	ft_putnbr_fd(g->p.walk, 1);
 	ft_putchar_fd('\n', 1);
+	mlx_put_str(g);
 	return (1);
 }

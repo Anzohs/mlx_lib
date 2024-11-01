@@ -18,6 +18,8 @@ void	start_collect(t_game *g, int n)
 
 	i = -1;
 	g->c.c = (t_colectable *)ft_calloc(n + 1, sizeof(t_colectable));
+	if (!g->c.c)
+		ft_free_g(g, 1);
 	collect_img(g, &g->c);
 	collected_img(g, &g->c);
 	while (++i < n)

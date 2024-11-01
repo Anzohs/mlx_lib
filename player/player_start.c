@@ -12,18 +12,25 @@
 
 #include "../inc/game.h"
 
+static void	get_img(t_player *p, t_game *g)
+{
+	p->sprite.img = mlx_xpm_file_to_image(g->mlx, "character_walk.xpm", \
+		&p->sprite.pos.x, &p->sprite.pos.y);
+	p->atack.img = mlx_xpm_file_to_image(g->mlx, "character_sword.xpm", \
+		&p->atack.pos.x, &p->atack.pos.y);
+	if (!p->sprite.img || !p->atack.img)
+		ft_free_g(g, 1);
+}
+
 void	player_start(t_game *g)
 {
 	g->p.ar = (t_area){g->p.pos, (t_vector){16, 32}};
 	g->p.score = 0;
 	g->p.health = 0;
 	g->p.sprite = (t_img){0};
-	g->p.sprite.img = mlx_xpm_file_to_image(g->mlx, "character_walk.xpm", \
-		&g->p.sprite.pos.x, &g->p.sprite.pos.y);
+	get_img(&g->p, g);
 	g->p.sprite.addr = mlx_get_data_addr(g->p.sprite.img, \
 		&g->p.sprite.bpp, &g->p.sprite.line_len, &g->p.sprite.endian);
-	g->p.atack.img = mlx_xpm_file_to_image(g->mlx, "character_sword.xpm", \
-		&g->p.atack.pos.x, &g->p.atack.pos.y);
 	g->p.atack.addr = mlx_get_data_addr(g->p.atack.img, \
 		&g->p.atack.bpp, &g->p.atack.line_len, &g->p.atack.endian);
 	g->p.sprite.pos = (t_vector){16, 32};

@@ -17,7 +17,7 @@
 # include "../mlx/mlx.h"
 
 void	init_world(t_game *g, t_vector size);
-void	write_world(t_game *g, t_map m);
+void	write_world(t_game *g);
 void	render_map(t_game *g, t_map *m);
 
 #endif

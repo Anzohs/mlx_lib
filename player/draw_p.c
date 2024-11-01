@@ -80,24 +80,36 @@ static void	player_attack(t_img *w, t_img *p, t_vector pos)
 	}
 }
 
+static void	get_img(t_player *p, t_game *g)
+{
+	if (p->anim.sword_anim)
+		p->current.img = mlx_new_image(g->mlx, p->atack.pos.x, p->atack.pos.y);
+	else
+		p->current.img = mlx_new_image(g->mlx, p->sprite.pos.x, \
+			p->sprite.pos.y);
+	if (!p->current.img)
+		ft_free_g(g, 1);
+}
+
 void	draw_p(t_game *g, int src_x, int src_y)
 {
-	if (g->p.current.img)
-		mlx_destroy_image(g->mlx, g->p.current.img);
-	if (g->p.anim.sword_anim)
-		g->p.current.img = mlx_new_image(g->mlx, g->p.atack.pos.x, g->p.atack.pos.y);
-	else
-		g->p.current.img = mlx_new_image(g->mlx, \
-			g->p.sprite.pos.x, g->p.sprite.pos.y);
+	t_vector	adju;
+
+	get_img(&g->p, g);
 	g->p.current.addr = mlx_get_data_addr(g->p.current.img, &g->p.current.bpp, \
 		&g->p.current.line_len, &g->p.current.endian);
 	if (g->p.anim.sword_anim)
 	{
-		t_vector adju = g->p.pos;
+		adju = g->p.pos;
 		adju.x -= (g->p.atack.pos.x - g->p.sprite.pos.x) / 2;
 		adju.y -= (g->p.atack.pos.y - g->p.sprite.pos.y) / 2;
 		g->p.current.pos = g->p.atack.pos;
-		pixel_copy_sw(g, src_x, src_y);
+		if (g->p.anim.row == 1)
+			pixel_copy_sw(g, src_x, g->p.atack.pos.y * 2);
+		else if (g->p.anim.row == 2)
+			pixel_copy_sw(g, src_x, g->p.atack.pos.y * 1);
+		else
+			pixel_copy_sw(g, src_x, src_y);
 		player_attack(&g->world, &g->p.current, adju);
 	}
 	else

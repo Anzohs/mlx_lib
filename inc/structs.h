@@ -35,7 +35,7 @@ typedef struct s_map
 	t_vector	size;
 	t_vector	p_pos;
 	t_vector	e_pos;
-	t_vector	x_pos;
+	t_vector	*x_pos;
 	t_vector	*c_pos;
 	int			c;
 	int			p;
@@ -108,8 +108,14 @@ typedef struct s_col
 typedef struct s_enemy
 {
 	t_vector	pos;
-	t_area		area;
-	t_img		sprite;
+	t_img		current;
+	bool		is_alive;
+	int			frame;
+	double		acc_time;
+	double		anim_acc_time;
+	char		type;
+	bool		(*is_colliding)(struct s_enemy e, t_player p);
+	bool		(*is_dead)(struct s_enemy e, t_player p);
 }	t_enemy;
 
 typedef struct s_exit
@@ -125,6 +131,14 @@ typedef struct s_b
 	t_img	floor;
 }		t_b;
 
+typedef struct s_enm
+{
+	t_enemy		*enemies;
+	int			nb;
+	t_img		death;
+	t_img		e_img;
+}		t_enm;
+
 struct s_game
 {
 	void			*mlx;
@@ -138,6 +152,7 @@ struct s_game
 	t_player		p;
 	t_col			c;
 	t_exit			e;
+	t_enm			enemy;
 	bool			keydown[280];
 	double			(*dt)(void);
 	void			(*loop)(struct s_game *g);

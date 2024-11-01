@@ -14,8 +14,9 @@
 
 static void	flood_fill(t_map *m, int w, int h, bool **visited)
 {
-	if (w < 0 || h < 0 || w >= m->size.x || h >= m->size.y ||!m->map[h][w] || visited[h][w])
-		return;
+	if (w < 0 || h < 0 || w >= m->size.x || \
+		h >= m->size.y ||!m->map[h][w] || visited[h][w])
+		return ;
 	if (m->map[h][w] == '1')
 	{
 		visited[h][w] = true;
