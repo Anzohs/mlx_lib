@@ -42,9 +42,9 @@ int	update_game(t_game *g, double dt)
 	update_col(g, dt);
 	render_game(g);
 	update_exit(g);
-	ft_putstr_fd("Player walk :", 1);
+/* 	ft_putstr_fd("Player walk :", 1);
 	ft_putnbr_fd(g->p.walk, 1);
-	ft_putchar_fd('\n', 1);
+	ft_putchar_fd('\n', 1); */
 	mlx_put_str(g);
 	return (1);
 }

@@ -57,9 +57,6 @@ void	game_start(t_map map)
 	player_start(g);
 	init_exit(g);
 	start_collect(g, map.c);
-	ft_putstr_fd("number of enemies \n",2);
-	ft_putnbr_fd(g->map->x, 2);
-	ft_putstr_fd("\n",2);
 	init_enemy(g, map.x);
 	event_handler(g);
 	g->loop(g);

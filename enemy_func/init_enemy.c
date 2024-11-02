@@ -9,9 +9,6 @@ static void	enemy_start(t_game *g)
 	{
 		g->enemy.enemies[i] = (t_enemy){0};
 		g->enemy.enemies[i].pos.x = g->map->x_pos[i].x * 32;
-		ft_putstr_fd("enemy position\n", 2);
-		ft_putnbr_fd(g->enemy.enemies[i].pos.x, 2);
-		ft_putstr_fd("\n", 2);
 		g->enemy.enemies[i].pos.y = g->map->x_pos[i].y * 32;
 		g->enemy.enemies[i].is_alive = true;
 	}
@@ -37,7 +34,6 @@ void	init_enemy(t_game *g, int n)
 	if (!g->enemy.enemies)
 		ft_free_g(g, 1);
 	g->enemy.nb = n;
-	enemy_img(&g->enemy, g);
 	enemy_start(g);
-	ft_putstr_fd("enemy start\n", 2);
+	enemy_img(&g->enemy, g);
 }
