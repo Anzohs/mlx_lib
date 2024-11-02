@@ -1,9 +1,8 @@
 #include "../inc/game.h"
-#include <stdlib.h>
 
 void	enemy_move(t_enemy *e, t_map *m, double dt)
 {
-	int direction = rand() % 4; // Random direction: 0 = up, 1 = down, 2 = left, 3 = right
+	int direction = rand() % 4;
     int new_x = e->pos.x;
     int new_y = e->pos.y;
 

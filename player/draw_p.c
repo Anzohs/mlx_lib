@@ -83,10 +83,18 @@ static void	player_attack(t_img *w, t_img *p, t_vector pos)
 static void	get_img(t_player *p, t_game *g)
 {
 	if (p->anim.sword_anim)
+	{
+		if (p->current.img)
+			mlx_destroy_image(g->mlx, p->current.img);
 		p->current.img = mlx_new_image(g->mlx, p->atack.pos.x, p->atack.pos.y);
+	}
 	else
+	{
+		if (p->current.img)
+			mlx_destroy_image(g->mlx, p->current.img);
 		p->current.img = mlx_new_image(g->mlx, p->sprite.pos.x, \
 			p->sprite.pos.y);
+	}
 	if (!p->current.img)
 		ft_free_g(g, 1);
 }

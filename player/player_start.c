@@ -14,9 +14,9 @@
 
 static void	get_img(t_player *p, t_game *g)
 {
-	p->sprite.img = mlx_xpm_file_to_image(g->mlx, "character_walk.xpm", \
+	p->sprite.img = mlx_xpm_file_to_image(g->mlx, "assets/character_walk.xpm", \
 		&p->sprite.pos.x, &p->sprite.pos.y);
-	p->atack.img = mlx_xpm_file_to_image(g->mlx, "character_sword.xpm", \
+	p->atack.img = mlx_xpm_file_to_image(g->mlx, "assets/character_sword.xpm", \
 		&p->atack.pos.x, &p->atack.pos.y);
 	if (!p->sprite.img || !p->atack.img)
 		ft_free_g(g, 1);
@@ -26,7 +26,7 @@ void	player_start(t_game *g)
 {
 	g->p.ar = (t_area){g->p.pos, (t_vector){16, 32}};
 	g->p.score = 0;
-	g->p.health = 0;
+	g->p.side = 0;
 	g->p.sprite = (t_img){0};
 	get_img(&g->p, g);
 	g->p.sprite.addr = mlx_get_data_addr(g->p.sprite.img, \

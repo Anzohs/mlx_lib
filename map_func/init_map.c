@@ -90,9 +90,8 @@ t_map	init_map(char *file)
 	int		fd;
 
 	m = (t_map){0};
-	m.x = 0;
 	m.size = get_dimensions(file);
-	if (m.size.y < 3)
+	if (m.size.y < 3 || m.size.x < 3)
 		error_message(2);
 	m.map = ft_calloc(m.size.y + 1, sizeof(char *));
 	fd = open(file, O_RDONLY);

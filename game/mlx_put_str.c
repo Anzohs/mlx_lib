@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   mlx_put_str.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/02 18:31:26 by hladeiro          #+#    #+#             */
+/*   Updated: 2024/11/02 18:31:27 by hladeiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/game.h"
 
 static int	num_len(unsigned int n)
@@ -39,7 +51,8 @@ void	mlx_put_str(t_game *g)
 	c = int_to_string(g->p.walk);
 	if (c)
 	{
-		mlx_string_put(g->mlx, g->win.win, g->win.size.x - 50, g->win.size.y - 10, 0, c);
+		mlx_string_put(g->mlx, g->win.win, g->win.size.x - 50, \
+			g->win.size.y - 10, 0, c);
 		free(c);
 	}
 }

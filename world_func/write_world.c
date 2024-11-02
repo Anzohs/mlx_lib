@@ -14,9 +14,9 @@
 
 void	write_world(t_game *g)
 {
-	g->i_map.wall.img = mlx_xpm_file_to_image(g->mlx, "tiles.xpm", \
+	g->i_map.wall.img = mlx_xpm_file_to_image(g->mlx, "assets/tiles.xpm", \
 		&g->i_map.wall.pos.x, &g->i_map.wall.pos.y);
-	g->i_map.floor.img = mlx_xpm_file_to_image(g->mlx, "groun.xpm", \
+	g->i_map.floor.img = mlx_xpm_file_to_image(g->mlx, "assets/groun.xpm", \
 		&g->i_map.floor.pos.x, &g->i_map.floor.pos.y);
 	if (!g->i_map.wall.img || !g->i_map.floor.img)
 		ft_free_g(g, 1);

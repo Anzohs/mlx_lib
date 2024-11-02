@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_enemy.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/02 19:14:56 by hladeiro          #+#    #+#             */
+/*   Updated: 2024/11/02 19:14:57 by hladeiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/game.h"
 
 static void	enemy_to_w(t_img *w, t_img *c, t_vector pos)
@@ -21,10 +33,12 @@ static void	enemy_to_w(t_img *w, t_img *c, t_vector pos)
 	}
 }
 
-static void pixel_cpy(t_game *g, t_enemy *e, t_img *img)
+static void	pixel_cpy(t_enemy *e, t_img *img)
 {
-	int x, y;
-	unsigned int color;
+	int				x;
+	int				y;
+	unsigned int	color;
+
 	y = -1;
 	while (++y < img->pos.y)
 	{
@@ -45,10 +59,24 @@ static void	enemy_img(t_enemy *e, t_game *g, t_enm *en)
 {
 	if (e->current.img)
 		mlx_destroy_image(g->mlx, e->current.img);
-	e->current.img = mlx_new_image(g->mlx, en->e_img.pos.x, en->e_img.pos.y);
-	e->current.addr = mlx_get_data_addr(e->current.img, &e->current.bpp, &e->current.line_len, &e->current.endian);
-	e->current.pos = en->e_img.pos;
-	pixel_cpy(g, e, &en->e_img);
+	if (e->is_alive)
+	{
+		e->current.img = mlx_new_image(g->mlx, en->e_img.pos.x, \
+			en->e_img.pos.y);
+		e->current.pos = en->e_img.pos;
+	}
+	else
+	{
+		e->current.img = mlx_new_image(g->mlx, en->death.pos.x, \
+			en->death.pos.y);
+		e->current.pos = en->death.pos;
+	}
+	e->current.addr = mlx_get_data_addr(e->current.img, &e->current.bpp, \
+		&e->current.line_len, &e->current.endian);
+	if (e->is_alive)
+		pixel_cpy(e, &en->e_img);
+	else
+		pixel_cpy(e, &en->death);
 	enemy_to_w(&g->world, &e->current, e->pos);
 }
 

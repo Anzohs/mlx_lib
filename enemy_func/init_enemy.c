@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   init_enemy.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/02 19:14:28 by hladeiro          #+#    #+#             */
+/*   Updated: 2024/11/02 19:14:29 by hladeiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/game.h"
 
 static void	enemy_start(t_game *g)
@@ -16,12 +28,16 @@ static void	enemy_start(t_game *g)
 
 static void	enemy_img(t_enm *e, t_game *g)
 {
-	e->e_img.img = mlx_xpm_file_to_image(g->mlx, "enemy.xpm", &e->e_img.pos.x, &e->e_img.pos.y);
-	e->death.img = mlx_xpm_file_to_image(g->mlx, "cross.xpm", &e->death.pos.x, &e->death.pos.y);
+	e->e_img.img = mlx_xpm_file_to_image(g->mlx, "assets/enemy.xpm", \
+		&e->e_img.pos.x, &e->e_img.pos.y);
+	e->death.img = mlx_xpm_file_to_image(g->mlx, "assets/cross.xpm", \
+		&e->death.pos.x, &e->death.pos.y);
 	if (!e->e_img.img || !e->death.img)
 		ft_free_g(g, 1);
-	e->e_img.addr = mlx_get_data_addr(e->e_img.img, &e->e_img.bpp, &e->e_img.line_len, &e->e_img.endian);
-	e->death.addr = mlx_get_data_addr(e->death.img, &e->death.bpp, &e->death.line_len, &e->death.endian);
+	e->e_img.addr = mlx_get_data_addr(e->e_img.img, &e->e_img.bpp, \
+		&e->e_img.line_len, &e->e_img.endian);
+	e->death.addr = mlx_get_data_addr(e->death.img, &e->death.bpp, \
+		&e->death.line_len, &e->death.endian);
 	e->e_img.pos = (t_vector){24, 24};
 	e->death.pos = (t_vector){20, 32};
 }

@@ -1,4 +1,15 @@
-# include "../inc/game.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   update_exit.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/02 19:06:37 by hladeiro          #+#    #+#             */
+/*   Updated: 2024/11/02 19:06:38 by hladeiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+#include "../inc/game.h"
 
 static bool	is_active(int points, int collectables)
 {
@@ -14,9 +25,10 @@ static bool	collides(t_area a1, t_area a2)
 	return (true);
 }
 
-static bool player_exit(t_player p, t_exit e)
+static bool	player_exit(t_player p, t_exit e)
 {
-	return (collides((t_area){(t_vector){e.pos.x + 16, e.pos.y + 16}, (t_vector){e.pos.x + 32, e.pos.y + 32}}, \
+	return (collides((t_area){(t_vector){e.pos.x + 16, e.pos.y + 16}, \
+		(t_vector){e.pos.x + 32, e.pos.y + 32}}, \
 		(t_area){p.pos, (t_vector){p.pos.x + 16, p.pos.y + 27}}));
 }
 

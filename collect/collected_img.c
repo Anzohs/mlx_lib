@@ -14,7 +14,7 @@
 
 void	collected_img(t_game *g, t_col *c)
 {
-	c->col.img = mlx_xpm_file_to_image(g->mlx, "crystal_collected.xpm", \
+	c->col.img = mlx_xpm_file_to_image(g->mlx, "assets/crystal_collected.xpm", \
 		&c->col.pos.x, &c->col.pos.y);
 	if (!c->col.img)
 		ft_free_g(g, 1);

@@ -12,6 +12,22 @@
 
 #include "../inc/game.h"
 
+void	ft_free_map(t_map *m)
+{
+	int	i;
+
+	i = -1;
+	while (i++ < m->size.y)
+		free(m->map[i]);
+	free(m->map[i]);
+	if (m->c_pos)
+		free(m->c_pos);
+	if (m->x_pos)
+		free(m->x_pos);
+	free(m);
+	exit(0);
+}
+
 void	loop(t_game	*g)
 {
 	mlx_loop(g->mlx);
@@ -30,13 +46,14 @@ static int	update(t_game *g)
 	return (0);
 }
 
-t_game	*init_game(char *name, t_vector s)
+t_game	*init_game(char *name, t_vector s, t_map *m)
 {
 	t_game	*game;
 
 	game = (t_game *)ft_calloc(1, sizeof(t_game));
 	if (!game)
-		exit(0);
+		ft_free_map(m);
+	game->map = m;
 	game->mlx = mlx_init();
 	if (!game->mlx)
 		ft_free_g(game, 1);

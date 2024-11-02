@@ -11,12 +11,7 @@
 /* ************************************************************************** */
 
 #include "../inc/game.h"
-
-static bool	is_valid(char c)
-{
-	return (c == '0' || c == '1' || c == 'C' \
-		|| c == 'P' || c == 'E' || c == 'X');
-}
+#include <fcntl.h>
 
 static bool	check_borders(char **map, int w, int h)
 {
@@ -37,15 +32,38 @@ static bool	check_borders(char **map, int w, int h)
 	return (true);
 }
 
+static void	mem_alloc(t_map *m)
+{
+	if (m->c > 0)
+		m->c_pos = ft_calloc(m->c + 1, sizeof(t_vector));
+	if (m->x > 0)
+		m->x_pos = ft_calloc(m->x + 1, sizeof(t_vector));
+}
+
+static void	copy_positions(t_map *m, int w, int h, int *i)
+{
+	if (m->map[h][w] == 'E')
+		m->e_pos = (t_vector){w, h};
+	if (m->map[h][w] == 'C')
+	{
+		m->c_pos[*i] = (t_vector){w, h};
+		(*i)++;
+	}
+	if (m->map[h][w] == 'X')
+	{
+		m->x_pos[*i] = (t_vector){w, h};
+		(*i)++;
+	}
+}
+
 static void	check_pos(t_map *m, int y)
 {
 	int	x;
 	int	i;
-	int j;
+	int	j;
 
-	m->c_pos = (t_vector *)ft_calloc(m->c + 1, sizeof(t_vector));
-	m->x_pos = (t_vector *)ft_calloc(m->x + 1, sizeof(t_vector));
-	if (!m->c_pos)
+	mem_alloc(m);
+	if (!m->c_pos || (!m->x_pos && m->x > 0))
 		free_map(m);
 	i = 0;
 	j = 0;
@@ -54,55 +72,12 @@ static void	check_pos(t_map *m, int y)
 		x = -1;
 		while (++x < m->size.x && m->map[y][x])
 		{
-			if (m->map[y][x] == 'E')
-			{
-				m->e_pos.x = x;
-				m->e_pos.y = y;
-			}
-			if (m->map[y][x] == 'C')
-			{
-				m->c_pos[i].x = x;
-				m->c_pos[i].y = y;
-				i++;
-			}
 			if (m->map[y][x] == 'X')
-			{
-				m->x_pos[j].x = x;
-				m->x_pos[j].y = y;
-				j++;
-			}
+				copy_positions(m, x, y, &j);
+			else
+				copy_positions(m, x, y, &i);
 		}
 	}
-}
-
-static int	check_map(t_map *m, int y)
-{
-	int	x;
-
-	while (++y < m->size.y)
-	{
-		x = -1;
-		while (++x < m->size.x && m->map[y][x])
-		{
-			if (!is_valid(m->map[y][x]))
-				return (0);
-			if (m->map[y][x] == 'P')
-			{
-				m->p_pos.x = x;
-				m->p_pos.y = y;
-				m->p++;
-			}
-			if (m->map[y][x] == 'E')
-				m->e++;
-			if (m->map[y][x] == 'C')
-				m->c++;
-			if (m->map[y][x] == 'X')
-				m->x++;
-		}
-	}
-	if (m->e != 1 || m->p != 1 || m->c < 1)
-		return (0);
-	return (1);
 }
 
 int	fload_fill(t_map *m)

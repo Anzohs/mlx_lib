@@ -21,8 +21,8 @@ void	save_collect(t_game *g, t_map *map)
 	{
 		g->c.c[i].pos.x = map->c_pos[i].x * 32;
 		g->c.c[i].pos.y = map->c_pos[i].y * 32;
-		g->c.c[i].current = (t_img) {0};
-		g->c.c[i].current.pos = (t_vector) {16, 16};
+		g->c.c[i].current = (t_img){0};
+		g->c.c[i].current.pos = (t_vector){16, 16};
 		g->c.c[i].nb_frame = 6;
 		g->c.c[i].frame = 0;
 		g->c.c[i].collected = false;

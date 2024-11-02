@@ -17,5 +17,6 @@
 
 void	draw_exit(t_game *g);
 void	update_exit(t_game *g);
+void	init_exit(t_game *g);
 
 #endif

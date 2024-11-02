@@ -22,6 +22,14 @@ static void	attack(t_player *p)
 {
 	p->anim.sword_anim = true;
 	p->anim.animating = false;
+	if (p->anim.up)
+		p->side = 2;
+	else if (p->anim.left)
+		p->side = 3;
+	else if (p->anim.right)
+		p->side = 1;
+	else
+		p->side = 0;
 	p->anim.frame = 0;
 }
 

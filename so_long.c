@@ -18,6 +18,7 @@ int	main(int ac, char **av)
 
 	if (ac == 2)
 	{
+		srand(time(NULL));
 		len = ft_strlen(av[1]);
 		if (len > 3 && valid_name(av[1], len))
 			game_start(init_map(av[1]));

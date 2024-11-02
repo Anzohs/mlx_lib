@@ -22,5 +22,7 @@ int		fload_fill(t_map *m);
 void	error_message(int e);
 void	free_map(t_map *m);
 int		valid_name(char *s, int l);
+bool	is_valid_map(char c);
+int		check_map(t_map *m, int y);
 
 #endif

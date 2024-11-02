@@ -1,8 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   draw_exit.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/02 19:06:21 by hladeiro          #+#    #+#             */
+/*   Updated: 2024/11/02 19:06:22 by hladeiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/game.h"
 
 static void	exit_to_world(t_img *w, t_img *e, t_vector pos)
 {
-
 	int				y;
 	int				x;
 	unsigned int	color;

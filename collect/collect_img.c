@@ -14,7 +14,7 @@
 
 void	collect_img(t_game *g, t_col *c)
 {
-	c->sprite.img = mlx_xpm_file_to_image(g->mlx, "cristal.xpm", \
+	c->sprite.img = mlx_xpm_file_to_image(g->mlx, "assets/cristal.xpm", \
 		&c->sprite.pos.x, &c->sprite.pos.y);
 	if (!c->sprite.img)
 		ft_free_g(g, 1);

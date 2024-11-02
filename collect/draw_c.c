@@ -19,14 +19,14 @@ static t_img	*get(bool collected, t_game *g)
 	return (&g->c.sprite);
 }
 
-static void	pixel_c(t_game *g, int src_x, int src_y, int n, bool collected)
+static void	pixel_c(t_game *g, int src_x, int src_y, int n)
 {
 	int				x;
 	int				y;
 	unsigned int	color;
 	t_img			*img;
 
-	img = get(collected, g);
+	img = get(g->c.c[n].collected, g);
 	y = -1;
 	while (++y < img->pos.y)
 	{
@@ -55,6 +55,6 @@ void	draw_c(t_game *g, int src_x, int src_y, int n)
 		&g->c.c[n].current.bpp, &g->c.c[n].current.line_len, \
 			&g->c.c[n].current.endian);
 	g->c.c[n].current.pos = g->c.sprite.pos;
-	pixel_c(g, src_x, src_y, n, g->c.c[n].collected);
-    collectable_to_w(&g->world, &g->c.c[n].current, g->c.c[n].pos);
+	pixel_c(g, src_x, src_y, n);
+	collectable_to_w(&g->world, &g->c.c[n].current, g->c.c[n].pos);
 }

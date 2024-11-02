@@ -32,12 +32,11 @@ typedef struct s_map	t_map;
 
 void	game_start(t_map map);
 
-t_game	*init_game(char *name, t_vector s);
 double	get_delta(void);
 int		exit_t(t_game *g);
 int		update_game(t_game *g, double dt);
 void	ft_free_g(t_game *g, int e);
 void	mlx_put_str(t_game *g);
-t_game	*init_game(char *name, t_vector s);
+t_game	*init_game(char *name, t_vector s, t_map *m);
 
 #endif

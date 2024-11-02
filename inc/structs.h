@@ -80,7 +80,7 @@ typedef struct s_player
 	t_img			current;
 	t_img			atack;
 	t_sprite		anim;
-	int				health;
+	int				side;
 	int				score;
 	t_area			ar;
 	unsigned int	walk;
