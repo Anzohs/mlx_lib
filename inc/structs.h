@@ -111,11 +111,9 @@ typedef struct s_enemy
 	t_img		current;
 	bool		is_alive;
 	int			frame;
+	int			dir;
 	double		acc_time;
 	double		anim_acc_time;
-	char		type;
-	bool		(*is_colliding)(struct s_enemy e, t_player p);
-	bool		(*is_dead)(struct s_enemy e, t_player p);
 }	t_enemy;
 
 typedef struct s_exit

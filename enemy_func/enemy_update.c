@@ -30,8 +30,8 @@ static t_area	check_pside(t_player *p)
 		return ((t_area){(t_vector){p->pos.x + 8, p->pos.y}, \
 			(t_vector){p->pos.x + 32, p->pos.y + 32}});
 	if (p->side == 2)
-		return ((t_area){(t_vector){p->pos.x, p->pos.y - 10}, \
-			(t_vector){p->pos.x + 16, p->pos.y}});
+		return ((t_area){(t_vector){p->pos.x, p->pos.y - 30}, \
+			(t_vector){p->pos.x + 32, p->pos.y}});
 	return ((t_area){(t_vector){p->pos.x - 10, p->pos.y}, \
 		(t_vector){p->pos.x, p->pos.y + 32}});
 }
@@ -41,23 +41,28 @@ static bool	is_dead(t_enemy *e, t_player *p)
 	if (!p->anim.sword_anim)
 		return (false);
 	return (check_pos((t_area){e->pos, \
-		(t_vector){e->pos.x + 24, e->pos.y + 24}}, \
+		(t_vector){e->pos.x + 24, e->pos.y + 30}}, \
 			check_pside(p)));
 }
 
-void	update_enemy(t_game *g)
+void	update_enemy(t_game *g, double dt)
 {
 	int		i;
-	t_enemy	*e;
 
 	i = -1;
+	(void)dt;
 	while (++i < g->map->x)
 	{
-		e = &g->enemy.enemies[i];
-		if (e->is_alive && is_dead(e, &g->p))
+		if (g->enemy.enemies[i].is_alive && is_dead(&g->enemy.enemies[i], &g->p))
 		{
-			e->is_alive = false;
-			e->frame = 0;
+			ft_putstr_fd("update_enemy", 2);
+			g->enemy.enemies[i].is_alive = false;
+			g->enemy.enemies[i].frame = 0;
 		}
+		/*else
+		{
+			enemy_move(&g->enemy.enemies[i], g->map, dt);
+			animation_up(&g->enemy.enemies[i], dt);
+			}*/
 	}
 }

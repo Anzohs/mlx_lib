@@ -6,7 +6,7 @@
 #    By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/10/17 18:06:05 by hladeiro          #+#    #+#              #
-#    Updated: 2024/10/17 18:06:10 by hladeiro         ###   ########.fr        #
+#    Updated: 2024/11/02 20:42:58 by hladeiro         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = so_long
 
 CC = cc
 CFLAGS = -Wall -Wextra -Werror -O3 -g
-MLX_FLAGS = -Lmlx -lmlx -lX11 -lXext
+MLX_FLAGS = -Lmlx -lmlx -framework OpenGL -framework AppKit
 LIBFT = inc/libft/libft.a
 MLX = mlx/libmlx.a
 INC = -I. -Iinc/libft -Iinc/mlx
@@ -27,9 +27,9 @@ SRC_EVENT = event_handler.c key_pressed.c key_released.c
 SRC_EXIT = draw_exit.c update_exit.c init_exit.c
 SRC_GAME = ft_free_g.c mlx_put_str.c update_game.c init_game.c
 SRC_MAP = error_message.c fload_fill.c fload_helper.c free_map.c init_map.c valid_name.c is_valid_map.c check_map.c
-SRC_PLA = draw_p.c player_start.c player_to_world.c player_update.c wall_collide.c
+SRC_PLA = draw_p.c player_start.c player_to_world.c player_update.c wall_collide.c is_player_dead.c
 SRC_WRD = init_world.c render_map.c write_world.c
-SRC_ENM = draw_enemy.c init_enemy.c enemy_update.c
+SRC_ENM = draw_enemy.c init_enemy.c enemy_update.c animation_up.c enemy_move.c
 
 SRC := $(addprefix cam_func/, $(SRC_CAM))
 SRC += $(addprefix collect/, $(SRC_COL))

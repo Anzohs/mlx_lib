@@ -33,7 +33,7 @@ static void	enemy_to_w(t_img *w, t_img *c, t_vector pos)
 	}
 }
 
-static void	pixel_cpy(t_enemy *e, t_img *img)
+static void	pixel_cpy(t_enemy *e, t_img *img, int src_x, int src_y)
 {
 	int				x;
 	int				y;
@@ -45,8 +45,8 @@ static void	pixel_cpy(t_enemy *e, t_img *img)
 		x = -1;
 		while (++x < img->pos.x)
 		{
-			color = *(unsigned int *)(img->addr + ((0 + y) * \
-				img->line_len + (0 + x) * (img->bpp / 8)));
+			color = *(unsigned int *)(img->addr + ((src_y + y) * \
+				img->line_len + (src_x + x) * (img->bpp / 8)));
 			if (color != 0xFF000000)
 				*(unsigned int *)(e->current.addr + (y * \
 					e->current.line_len + x * \
@@ -74,9 +74,9 @@ static void	enemy_img(t_enemy *e, t_game *g, t_enm *en)
 	e->current.addr = mlx_get_data_addr(e->current.img, &e->current.bpp, \
 		&e->current.line_len, &e->current.endian);
 	if (e->is_alive)
-		pixel_cpy(e, &en->e_img);
+		pixel_cpy(e, &en->e_img, e->frame * 24, e->dir * 24);
 	else
-		pixel_cpy(e, &en->death);
+		pixel_cpy(e, &en->death, 0, 0);
 	enemy_to_w(&g->world, &e->current, e->pos);
 }
 

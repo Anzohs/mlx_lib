@@ -1,21 +1,44 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   enemy_move.c                                       :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: hladeiro <hladeiro@student.42lisboa.com>   +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/11/03 00:54:58 by hladeiro          #+#    #+#             */
+/*   Updated: 2024/11/03 00:54:59 by hladeiro         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/game.h"
+
+static int	get_dit(int dx, int dy, int rd, t_map *m)
+{
+	if (rd == 0 && m->map[(dy - 1) / 32][dx / 32] != 1)
+		return (3);
+	else if (rd == 1 && m->map[(dy + 24) / 32][dx / 32])
+		return (0);
+	else if (rd == 2 && m->map[dy / 32][(dx - 1) / 32] != '1')
+		return (2);
+	else if (rd == 3 && m->map[dy / 32][(dx + 24) / 32] != 1)
+		return (1);
+	return (5);
+}
 
 void	enemy_move(t_enemy *e, t_map *m, double dt)
 {
-	int direction = rand() % 4;
-    int new_x = e->pos.x;
-    int new_y = e->pos.y;
+	int	dir;
 
-    if (direction == 0 && m->map[(e->pos.y - 1) / 32][e->pos.x / 32] != '1') {
-        new_y -= (3 * dt) + 1;
-    } else if (direction == 1 && m->map[(e->pos.y + 24) / 32][e->pos.x / 32] != '1') {
-        new_y += (3 * dt) + 1;
-    } else if (direction == 2 && m->map[e->pos.y / 32][(e->pos.x - 1) / 32] != '1') {
-        new_x -= (3 * dt) + 1;
-    } else if (direction == 3 && m->map[e->pos.y / 32][(e->pos.x + 24) / 32] != '1') {
-        new_x += (3 * dt) + 1;
-    }
-
-    e->pos.x = new_x;
-    e->pos.y = new_y;
+	dir = get_dit(e->pos.x, e->pos.y, rand() % 4, m);
+	if (dir == 5)
+		return ;
+	e->dir = dir;
+	if (e->dir == 3)
+		e->pos.y -= (3 * dt) + 1;
+	else if (e->dir == 0)
+		e->pos.y += (3 * dt) + 1;
+	else if (e->dir == 2)
+		e->pos.x -= (3 * dt) + 1;
+	else
+		e->pos.x += (3 * dt) + 1;
 }

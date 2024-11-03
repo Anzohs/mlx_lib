@@ -46,7 +46,7 @@ void	init_enemy(t_game *g, int n)
 {
 	if (!n)
 		return ;
-	g->enemy.enemies = ft_calloc(n, sizeof(t_enemy));
+	g->enemy.enemies = ft_calloc(n + 1, sizeof(t_enemy));
 	if (!g->enemy.enemies)
 		ft_free_g(g, 1);
 	g->enemy.nb = n;

@@ -39,10 +39,12 @@ int	update_game(t_game *g, double dt)
 	key_released(&g->p, g->keydown);
 	key_pressed(&g->p, g->keydown);
 	player_update(g, &g->p, dt);
-	update_enemy(g);
+	if (g->map->x)
+		update_enemy(g, dt);
 	update_col(g, dt);
 	render_game(g);
 	update_exit(g);
+	is_player_dead(g);
 	ft_putstr_fd("Player walk :", 1);
 	ft_putnbr_fd(g->p.walk, 1);
 	ft_putchar_fd('\n', 1);

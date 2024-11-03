@@ -80,7 +80,7 @@ void	ft_free_g(t_game *g, int e)
 	free_ttmap(g->map);
 	if (g->win.win)
 		mlx_destroy_window(g->mlx, g->win.win);
-	mlx_destroy_display(g->mlx);
+	//mlx_destroy_display(g->mlx);
 	if (g->mlx)
 		free(g->mlx);
 	free(g);

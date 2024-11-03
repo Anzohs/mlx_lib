@@ -44,15 +44,15 @@ static void	copy_positions(t_map *m, int w, int h, int *i)
 {
 	if (m->map[h][w] == 'E')
 		m->e_pos = (t_vector){w, h};
-	if (m->map[h][w] == 'C')
+	else if (m->map[h][w] == 'C')
 	{
 		m->c_pos[*i] = (t_vector){w, h};
-		(*i)++;
+		*i = *i + 1;
 	}
-	if (m->map[h][w] == 'X')
+	else if (m->map[h][w] == 'X')
 	{
 		m->x_pos[*i] = (t_vector){w, h};
-		(*i)++;
+		*i = *i + 1;
 	}
 }
 
