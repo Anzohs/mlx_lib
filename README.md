@@ -23,14 +23,16 @@ To run the program:
 ```sh
 ./so_long maps/test.ber
 ```
-name of the runnable `so_long` arguments(map) `maps/test.ber`
+The name of the runnable `so_long`, and it takes a map file as an argument, e.g.,`maps/test.ber`.
 
 ### Attention 
 You can make your own custom map!
-But it needs to be surrounded by walls, winnable (needs to collect all the Collectables and an exit) and needs to be a .ber file.
+- The map needs to be surrounded by walls
+- It must be winnable (You need to collect all the Collectables and can reach the exit)
+- The map needs to be a `.ber` file
 
 ### How to create a map
-- Collectables are C
-- Player is P
-- Enemies are X
-- Exit is E
+- Collectables are `C`
+- Player is `P`
+- Enemies are `X`
+- Exit is `E`
